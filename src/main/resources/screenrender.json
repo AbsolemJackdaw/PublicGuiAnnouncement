@@ -22,7 +22,7 @@
 	"RepairContainer#minecraft:textures/gui/container/anvil.png",
 	"MerchantContainer#minecraft:textures/gui/container/villager2.png#276#166#512#256",
 	"EditBookScreen#minecraft:textures/gui/book.png#166#181",
-	
+	"LecternContainer#minecraft:textures/gui/book.png#166#181",
 	
 	"ChatScreen#publicguiannouncement:textures/gui/chat.png",
 	"IngameMenuScreen#publicguiannouncement:textures/gui/pause_menu.png#255#255#255#255",
