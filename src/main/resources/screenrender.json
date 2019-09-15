@@ -1,0 +1,45 @@
+{
+ "screens" : [
+	"InventoryScreen#minecraft:textures/gui/container/inventory.png",
+	"CreativeScreen#minecraft:textures/gui/container/inventory.png",
+	"ChestContainer#minecraft:textures/gui/container/generic_54.png#176#222",
+	"LoomContainer#minecraft:textures/gui/container/loom.png",
+	"SmokerContainer#minecraft:textures/gui/container/smoker.png",
+	"ShulkerBoxContainer#minecraft:textures/gui/container/shulker_box.png",
+	"StonecutterContainer#minecraft:textures/gui/container/stonecutter.png",
+	"HorseInventoryContainer#minecraft:textures/gui/container/horse.png",
+	"HopperContainer#minecraft:textures/gui/container/hopper.png#176#133",
+	"DispenserContainer#minecraft:textures/gui/container/hopper.png#176#133",
+	"GrindstoneContainer#minecraft:textures/gui/container/grindstone.png",
+	"FurnaceContainer#minecraft:textures/gui/container/furnace.png",
+	"EnchantmentContainer#minecraft:textures/gui/container/enchanting_table.png",
+	"DispenserContainer#minecraft:textures/gui/container/dispenser.png",
+	"CraftingScreen#minecraft:textures/gui/container/crafting_table.png",
+	"CartographyContainer#minecraft:textures/gui/container/cartography_table.png",
+	"BrewingStandContainer#minecraft:textures/gui/container/brewing_stand.png",
+	"BlastFurnaceContainer#minecraft:textures/gui/container/blast_furnace.png",
+	"BeaconContainer#minecraft:textures/gui/container/beacon.png#230#219",
+	"RepairContainer#minecraft:textures/gui/container/anvil.png",
+	"MerchantContainer#minecraft:textures/gui/container/villager2.png#276#166#512#256",
+	"EditBookScreen#minecraft:textures/gui/book.png#166#181",
+	
+	
+	"ChatScreen#publicguiannouncement:textures/gui/chat.png",
+	"IngameMenuScreen#publicguiannouncement:textures/gui/pause_menu.png#255#255#255#255",
+	"AdvancementsScreen#publicguiannouncement:textures/gui/advancements_menu.png#255#255#255#255",
+	"ConfirmOpenLinkScreen#publicguiannouncement:textures/gui/link_ext_menu.png#255#255#255#255",
+	"OptionsScreen#publicguiannouncement:textures/gui/options_menu.png#255#255#255#255",
+	"StatsScreen#publicguiannouncement:textures/gui/stat_menu.png#255#255#255#255",
+	"ShareToLanScreen#publicguiannouncement:textures/gui/lan_menu.png#255#255#255#255",
+	
+	"CustomizeSkinScreen#publicguiannouncement:textures/gui/skin_menu.png#225#225#225#225",
+	"VideoSettingsScreen#publicguiannouncement:textures/gui/video_menu.png#225#225#225#225",
+	"LanguageScreen#publicguiannouncement:textures/gui/language_menu.png#225#225#225#225",
+	"ResourcePacksScreen#publicguiannouncement:textures/gui/resource_menu.png#225#162#225#162",
+	"OptionsSoundsScreen#publicguiannouncement:textures/gui/music_menu.png#225#225#225#225",
+	"ControlsScreen#publicguiannouncement:textures/gui/controls_menu.png#225#225#225#225",
+	"ChatOptionsScreen#publicguiannouncement:textures/gui/chat_menu.png#225#225#225#225",
+	"AccessibilityScreen#publicguiannouncement:textures/gui/accesibility_menu.png#225#225#225#225",
+	"MouseSettingsScreen#publicguiannouncement:textures/gui/mouse_settings.png#225#225#225#225"
+ ]
+}
