@@ -41,7 +41,7 @@ public class OpenGuiEventHandler {
 
         if (event.getGui() != null) {
 
-            String simpleName = event.getGui().getClass().getSimpleName();
+            String simpleName = event.getGui().getClass().getName();
 
             if (Minecraft.getInstance() != null) {
 

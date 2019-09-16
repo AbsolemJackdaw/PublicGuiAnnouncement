@@ -2,31 +2,28 @@ package subaraki.pga.util;
 
 public class ScreenEntry {
 
-    private int sizeX = 176;
-    private int sizeY = 166;
+    private int sizeX = 175;
+    private int sizeY = 165;
     private int texX = 255;
     private int texY = 255;
 
     private String resLoc = "textures/gui/container/inventory.png";
     private String refName;
 
-    public ScreenEntry(String[] args) {
-
-        switch (args.length) {
-        case 6:
-            this.texY = Integer.valueOf(args[5]);
-        case 5:
-            this.texX = Integer.valueOf(args[4]);
-        case 4:
-            this.sizeY = Integer.valueOf(args[3]);
-        case 3:
-            this.sizeX = Integer.valueOf(args[2]);
-        case 2:
-            this.resLoc = args[1];
-        case 1:
-            this.refName = args[0];
-            break;
-        }
+    public ScreenEntry(String refName, String resLoc, int sizeX, int sizeY, int texX, int texY) {
+        
+        this.refName = refName;
+        this.resLoc = resLoc;
+        
+        if(sizeX > 0)
+            this.sizeX = sizeX;
+        if(sizeY > 0)
+            this.sizeY = sizeY;
+        
+        if(texX > 0)
+            this.texX = texX;
+        if(texY > 0)
+            this.texY = texY;
     }
 
     public int getSizeX() {

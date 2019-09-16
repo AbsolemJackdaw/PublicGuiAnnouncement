@@ -14,7 +14,7 @@ public class ContainerEventHandler {
     public void openContainerEvent(PlayerContainerEvent.Open event) {
 
         if (event.getContainer() != null && !event.getPlayer().world.isRemote) {
-            String name = event.getContainer().getClass().getSimpleName();
+            String name = event.getContainer().getClass().getName();
             ScreenData.get(event.getPlayer()).setViewingScreen(name);
             NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new PacketSendScreenToClient(name));
         }

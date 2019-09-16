@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,17 +63,41 @@ public class ScreenPackReader {
                 if (json.has("screens")) {
                     JsonArray array = json.getAsJsonArray("screens");
                     for (int i = 0; i < array.size(); i++) {
-                        String simpleEntry = array.get(i).getAsString();
 
-                        String[] entryRegex = simpleEntry.split("#");
+                        JsonObject jsonObject = array.get(i).getAsJsonObject();
 
-                        List<String> list = new ArrayList<>();
-                        for (String s : entryRegex)
-                            list.add(s);
+                        String fullName = jsonObject.get("class").getAsString();
 
-                        ScreenEntry entry = new ScreenEntry(entryRegex);
-                        ScreenMod.LOG.info(String.format("Loaded in texture %s for %s of file size %d x %d and texture size %d x %d", entry.getResLoc(), entry.getRefName(),
-                                entry.getTexX(), entry.getTexY(), entry.getSizeX(), entry.getSizeY()));
+                        String path = jsonObject.get("texture").getAsString();
+                        int sizeX = 0;
+                        int sizeY = 0;
+                        int texX = 0;
+                        int texY = 0;
+
+                        if (jsonObject.has("size")) {
+                            JsonArray list = jsonObject.getAsJsonArray("size");
+                            if (list.size() == 2) {
+                                sizeX = list.get(0).getAsInt();
+                                sizeY = list.get(1).getAsInt();
+                            }
+                        }
+
+                        if (jsonObject.has("texSize")) {
+                            JsonArray list = jsonObject.getAsJsonArray("texSize");
+                            if (list.size() == 2) {
+                                texX = list.get(0).getAsInt();
+                                texY = list.get(1).getAsInt();
+                            }
+                        }
+                        
+                        if (jsonObject.has("fullSize")) {
+                            int size = jsonObject.get("fullSize").getAsInt();
+                            sizeX = sizeY = texX = texY = size;
+                        }
+
+                        ScreenEntry entry = new ScreenEntry(fullName, path, sizeX, sizeY, texX, texY);
+                        ScreenMod.LOG.info(String.format("Loaded in texture %s for %s of file size %d x %d and texture size %d x %d", entry.getResLoc(),
+                                entry.getRefName(), entry.getTexX(), entry.getTexY(), entry.getSizeX(), entry.getSizeY()));
                         mappedScreens.put(entry.getRefName(), entry);
 
                     }
