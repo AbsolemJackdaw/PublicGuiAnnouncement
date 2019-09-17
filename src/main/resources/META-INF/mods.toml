@@ -8,7 +8,7 @@ logoFile="logo.png" #optional
 
 modId="publicguiannouncement" #mandatory
 
-version="1.0.1.0" #mandatory
+version="1.0.1.1" #mandatory
 
 displayName="Public GUI Announcement" #mandatory
 
