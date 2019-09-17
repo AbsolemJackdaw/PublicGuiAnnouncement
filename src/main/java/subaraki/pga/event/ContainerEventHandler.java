@@ -15,7 +15,7 @@ public class ContainerEventHandler {
 
         if (event.getContainer() != null && !event.getPlayer().world.isRemote) {
             String name = event.getContainer().getClass().getName();
-            ScreenData.get(event.getPlayer()).setViewingScreen(name);
+            ScreenData.get(event.getPlayer()).ifPresent(t -> t.setViewingScreen(name));
             NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new PacketSendScreenToClient(name));
         }
 
@@ -25,12 +25,9 @@ public class ContainerEventHandler {
     public void closeContainerEvent(PlayerContainerEvent.Close event) {
 
         if (event.getContainer() != null && event.getPlayer() != null && !event.getPlayer().world.isRemote) {
-            ScreenData data = ScreenData.get(event.getPlayer());
-            if (data != null) {
-                data.setViewingScreen(ScreenData.CLOSE_SCREEN);
-                NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()),
-                        new PacketSendScreenToClient(ScreenData.CLOSE_SCREEN));
-            }
+            ScreenData.get(event.getPlayer()).ifPresent(t -> t.setViewingScreen(ScreenData.CLOSE_SCREEN));
+            NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()),
+                    new PacketSendScreenToClient(ScreenData.CLOSE_SCREEN));
         }
     }
 }

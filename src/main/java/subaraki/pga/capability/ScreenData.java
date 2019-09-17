@@ -2,6 +2,7 @@ package subaraki.pga.capability;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
 import subaraki.pga.network.NetworkHandler;
 import subaraki.pga.network.packet_server.PacketSendScreenToTrackingPlayers;
@@ -25,9 +26,9 @@ public class ScreenData {
         this.player = newPlayer;
     }
 
-    public static ScreenData get(PlayerEntity player) {
+    public static LazyOptional<ScreenData> get(PlayerEntity player) {
 
-        return player.getCapability(ScreenCapability.CAPABILITY, null).orElse(null);
+        return player.getCapability(ScreenCapability.CAPABILITY, null);
     }
 
     public void setViewingScreen(String simpleclassname) {

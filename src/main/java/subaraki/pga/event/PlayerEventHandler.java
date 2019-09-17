@@ -13,16 +13,22 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public void playerTracking(PlayerEvent.StartTracking event) {
 
-        if(event.getEntity().world.isRemote)
+        if (event.getEntity().world.isRemote)
             return;
-        
+
         if (event.getPlayer() != null) {
             PlayerEntity player = event.getPlayer();
-            ScreenData data = ScreenData.get(player);
-            
-            if (data.getViewingScreen() != null)
+
+            ScreenData.get(player).ifPresent(data -> {
+
+                if (data.getViewingScreen() == null)
+                    return;
+
+                String name = data.getViewingScreen().getRefName();
+
                 NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> player),
-                        new PacketSendScreenToTrackingPlayers(player.getUniqueID(), data.getViewingScreen().getRefName()));
+                        new PacketSendScreenToTrackingPlayers(player.getUniqueID(), name));
+            });
         }
     }
 }

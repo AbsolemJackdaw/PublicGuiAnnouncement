@@ -52,9 +52,8 @@ public class PacketSendScreenToTrackingPlayers implements IPacketBase {
 
             PlayerEntity distPlayer = ClientReferences.getClientPlayerByUUID(uuid);
             if (distPlayer != null) {
-                ScreenData distData = ScreenData.get(distPlayer);
-                if (distData != null)
-                    distData.setViewingScreen(name);
+                ScreenData.get(distPlayer).ifPresent(t -> t.setViewingScreen(name));
+
             }
         });
         context.get().setPacketHandled(true);

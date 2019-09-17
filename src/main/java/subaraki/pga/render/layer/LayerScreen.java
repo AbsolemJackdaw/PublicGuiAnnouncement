@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.Model;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import subaraki.pga.capability.ScreenData;
 
@@ -30,50 +29,51 @@ public class LayerScreen extends LayerRenderer<AbstractClientPlayerEntity, Playe
     @Override
     public void render(AbstractClientPlayerEntity entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-        ScreenData data = ScreenData.get((PlayerEntity) entityIn);
-
         if (Minecraft.getInstance().currentScreen instanceof InventoryScreen || Minecraft.getInstance().currentScreen instanceof CreativeScreen)
             return;
 
-        if (data != null && data.getViewingScreen() != null) {
+        ScreenData.get(entityIn).ifPresent(data -> {
 
-            // if (System.currentTimeMillis() % 60 == 0) {
-            // ScreenMod.LOG.debug(data.getViewingScreen().getResLoc() + " " +
-            // entityIn.getDisplayName().getFormattedText());
-            // }
+            if (data != null && data.getViewingScreen() != null) {
 
-            ResourceLocation resLoc = data.lookupResloc(data.getViewingScreen().getRefName());
+                // if (System.currentTimeMillis() % 60 == 0) {
+                // ScreenMod.LOG.debug(data.getViewingScreen().getResLoc() + " " +
+                // entityIn.getDisplayName().getFormattedText());
+                // }
 
-            if (resLoc != null) {
+                ResourceLocation resLoc = data.lookupResloc(data.getViewingScreen().getRefName());
 
-                double pixelScale = 0.0625;
-                int x = data.getViewingScreen().getSizeX();
-                int y = data.getViewingScreen().getSizeY();
+                if (resLoc != null) {
 
-                Model m = new Model();
-                m.textureWidth = data.getViewingScreen().getTexX();
-                m.textureHeight = data.getViewingScreen().getTexY();
+                    double pixelScale = 0.0625;
+                    int x = data.getViewingScreen().getSizeX();
+                    int y = data.getViewingScreen().getSizeY();
 
-                RendererModelFlat model = new RendererModelFlat(m).addBox(0, 0, 0, x, y, 0);
+                    Model m = new Model();
+                    m.textureWidth = data.getViewingScreen().getTexX();
+                    m.textureHeight = data.getViewingScreen().getTexY();
 
-                GlStateManager.pushMatrix();
+                    RendererModelFlat model = new RendererModelFlat(m).addBox(0, 0, 0, x, y, 0);
 
-                GlStateManager.rotated(netHeadYaw, 0, 1, 0);
-                GlStateManager.rotated(headPitch, 1, 0, 0);
+                    GlStateManager.pushMatrix();
 
-                double dx = ((double) x / 2.0) * pixelScale;
-                double dy = ((double) y / 2.0) * pixelScale;
-                double headToCenterOffset = pixelScale * 4;
+                    GlStateManager.rotated(netHeadYaw, 0, 1, 0);
+                    GlStateManager.rotated(headPitch, 1, 0, 0);
 
-                GlStateManager.translated(-dx * 0.0625, -dy * 0.0625 - headToCenterOffset, -pixelScale * 16);
+                    double dx = ((double) x / 2.0) * pixelScale;
+                    double dy = ((double) y / 2.0) * pixelScale;
+                    double headToCenterOffset = pixelScale * 4;
 
-                GlStateManager.scaled(pixelScale, pixelScale, pixelScale);
+                    GlStateManager.translated(-dx * 0.0625, -dy * 0.0625 - headToCenterOffset, -pixelScale * 16);
 
-                bindTexture(resLoc);
-                model.render((float) pixelScale);
+                    GlStateManager.scaled(pixelScale, pixelScale, pixelScale);
 
-                GlStateManager.popMatrix();
+                    bindTexture(resLoc);
+                    model.render((float) pixelScale);
+
+                    GlStateManager.popMatrix();
+                }
             }
-        }
+        });
     }
 }

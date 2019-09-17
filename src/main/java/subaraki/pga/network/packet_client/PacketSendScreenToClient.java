@@ -46,9 +46,8 @@ public class PacketSendScreenToClient implements IPacketBase {
         context.get().enqueueWork(() -> {
 
             PlayerEntity player = ClientReferences.getClientPlayer();
-            ScreenData data = ScreenData.get(player);
 
-            data.setViewingScreen(name);
+            ScreenData.get(player).ifPresent(t -> t.setViewingScreen(name));
 
         });
         context.get().setPacketHandled(true);

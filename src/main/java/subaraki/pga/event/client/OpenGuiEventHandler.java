@@ -27,14 +27,11 @@ public class OpenGuiEventHandler {
 
                     PlayerEntity player = Minecraft.getInstance().player;
 
-                    ScreenData data = ScreenData.get(player);
+                    ScreenData.get(player).ifPresent(t -> t.setViewingScreen(ScreenData.CLOSE_SCREEN));
 
-                    if (data != null) {
-                        data.setViewingScreen(ScreenData.CLOSE_SCREEN);
-                        // minecraft sets screens twice to null for closing them. no current workaround
-                        // to reduce packet spam
-                        NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(ScreenData.CLOSE_SCREEN));
-                    }
+                    // minecraft sets screens twice to null for closing them. no current workaround
+                    // to reduce packet spam
+                    NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(ScreenData.CLOSE_SCREEN));
                 }
             }
         }
@@ -48,14 +45,10 @@ public class OpenGuiEventHandler {
                 PlayerEntity player = Minecraft.getInstance().player;
 
                 if (player != null) {
-                    ScreenData data = ScreenData.get(player);
 
-                    if (data != null) {
+                    ScreenData.get(player).ifPresent(t -> t.setViewingScreen(simpleName));
 
-                        data.setViewingScreen(simpleName);
-
-                        NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(simpleName));
-                    }
+                    NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(simpleName));
                 }
             }
         }
