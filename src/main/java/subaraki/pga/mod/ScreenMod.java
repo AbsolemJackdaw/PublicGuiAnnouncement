@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import subaraki.pga.capability.ScreenCapability;
 import subaraki.pga.event.EventRegistry;
 import subaraki.pga.event.client.OpenGuiEventHandler;
 import subaraki.pga.network.NetworkHandler;
@@ -31,7 +32,7 @@ public class ScreenMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        ScreenCapability.register();
         new EventRegistry();
         new NetworkHandler();
     }

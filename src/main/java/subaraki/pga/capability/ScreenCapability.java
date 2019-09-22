@@ -17,7 +17,7 @@ public class ScreenCapability {
     /*
      * This registers our capability to the manager
      */
-    public void register() {
+    public static void register() {
 
         CapabilityManager.INSTANCE.register(
 
