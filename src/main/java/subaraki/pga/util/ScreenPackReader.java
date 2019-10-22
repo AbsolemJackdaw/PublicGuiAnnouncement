@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +52,17 @@ public class ScreenPackReader {
     private void loadFromJson() {
 
         try {
-            List<IResource> jsons = Minecraft.getInstance().getResourceManager().getAllResources(new ResourceLocation(ScreenMod.MODID, "screenrender.json"));
+
+            Collection<ResourceLocation> jsonfiles = Minecraft.getInstance().getResourceManager().getAllResourceLocations("load_screens", (filename) -> {
+                return filename.endsWith(".json");
+            });
+
+            List<IResource> jsons = new ArrayList<IResource>();
+
+            for (ResourceLocation resLoc : jsonfiles) {
+                jsons.addAll(Minecraft.getInstance().getResourceManager().getAllResources(resLoc));
+            }
+
             Gson gson = new GsonBuilder().create();
 
             for (IResource res : jsons) {
@@ -69,6 +81,7 @@ public class ScreenPackReader {
                         String fullName = jsonObject.get("class").getAsString();
 
                         String path = jsonObject.get("texture").getAsString();
+                       
                         int sizeX = 0;
                         int sizeY = 0;
                         int texX = 0;
@@ -89,14 +102,14 @@ public class ScreenPackReader {
                                 texY = list.get(1).getAsInt();
                             }
                         }
-                        
+
                         if (jsonObject.has("fullSize")) {
                             int size = jsonObject.get("fullSize").getAsInt();
                             sizeX = sizeY = texX = texY = size;
                         }
 
                         ScreenEntry entry = new ScreenEntry(fullName, path, sizeX, sizeY, texX, texY);
-                        ScreenMod.LOG.info(String.format("Loaded in texture %s for %s of file size %d x %d and texture size %d x %d", entry.getResLoc(),
+                        ScreenMod.LOG.debug(String.format("Loaded %s for %s : file size %d x %d , tex size %d x %d", entry.getResLoc(),
                                 entry.getRefName(), entry.getTexX(), entry.getTexY(), entry.getSizeX(), entry.getSizeY()));
                         mappedScreens.put(entry.getRefName(), entry);
 
@@ -109,6 +122,7 @@ public class ScreenPackReader {
             ScreenMod.LOG.warn("No Screens Detected. You will not be able to use ");
             ScreenMod.LOG.warn("the Public Gui Announcement Mod correctly.");
             ScreenMod.LOG.warn("Make sure to select or set some in the resourcepack gui !");
+            ScreenMod.LOG.warn("Or verify your painting json in assets/any_modid/load_screens  !");
             ScreenMod.LOG.warn("!*!*!*!*!");
             ScreenMod.LOG.warn("************************************");
 
