@@ -32,7 +32,7 @@ public class ScreenMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        ScreenCapability.register();
+        new ScreenCapability().register();
         new EventRegistry();
         new NetworkHandler();
     }
