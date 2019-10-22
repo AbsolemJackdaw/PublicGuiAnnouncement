@@ -8,7 +8,7 @@ public class ScreenEntry {
     private int texY = 255;
 
     private String resLoc = "textures/gui/container/inventory.png";
-    private String refName;
+    private String refName = "net.minecraft.client.gui.screen.inventory.InventoryScreen";
 
     public ScreenEntry(String refName, String resLoc, int sizeX, int sizeY, int texX, int texY) {
         
