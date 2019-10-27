@@ -1,8 +1,0 @@
-{
-	"screens" : [{
-			"COMMENT" : "WORLD HANDLER SUPPORT", 
-			"class" : "exopandora.worldhandler.gui.container.impl.GuiWorldHandler", 
-			"texture" : "publicguiannouncement:textures/gui/modsupport/worldhander/world_handler.png", 
-			"size" : [248, 188]
-		}]
-}
