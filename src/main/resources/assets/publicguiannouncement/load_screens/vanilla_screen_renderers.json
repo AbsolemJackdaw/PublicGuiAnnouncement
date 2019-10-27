@@ -77,6 +77,10 @@
 
 			"texSize" : [512, 256]
 		}, {
+			"class" : "net.minecraft.client.gui.screen.EditSignScreen", 
+			"texture" : "publicguiannouncement:textures/gui/sign_edit.png", 
+			"fullSize" : 255
+		}, {
 			"class" : "net.minecraft.client.gui.screen.IngameMenuScreen", 
 			"texture" : "publicguiannouncement:textures/gui/pause_menu.png", 
 			"fullSize" : 255
