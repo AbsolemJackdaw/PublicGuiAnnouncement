@@ -1,21 +1,15 @@
 modLoader="javafml" #mandatory
-
+license="GNU V3"
 loaderVersion="[28,)" #mandatory (26 is current forge version)
 
 logoFile="logo.png" #optional
 
 [[mods]] #mandatory
-
 modId="publicguiannouncement" #mandatory
-
 version="1.1.0.1" #mandatory
-
 displayName="Public GUI Announcement" #mandatory
-
 credits="Thanks to Comeupper for the idea" #optional
-
 authors="Subaraki" #optional
-
 description='''
 
 Shows a simple representation of the screen players are currently looking at

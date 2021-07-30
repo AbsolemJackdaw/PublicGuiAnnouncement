@@ -14,7 +14,6 @@ import subaraki.pga.event.EventRegistry;
 import subaraki.pga.event.client.OpenGuiEventHandler;
 import subaraki.pga.network.NetworkHandler;
 import subaraki.pga.util.ClientReferences;
-import subaraki.pga.util.ScreenPackReader;
 
 @Mod(ScreenMod.MODID)
 @EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.MOD)
@@ -31,18 +30,18 @@ public class ScreenMod {
 
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event)
+    {
+
         new ScreenCapability().register();
         new EventRegistry();
         new NetworkHandler();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event)
+    {
 
         new OpenGuiEventHandler();
 
-        new ScreenPackReader().registerReloadListener().init();
-
-        ClientReferences.loadLayers();
     }
 }

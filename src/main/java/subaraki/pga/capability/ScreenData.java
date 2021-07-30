@@ -1,9 +1,10 @@
 package subaraki.pga.capability;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.network.NetworkHandler;
 import subaraki.pga.network.packet_server.PacketSendScreenToTrackingPlayers;
 import subaraki.pga.util.ScreenEntry;
@@ -12,21 +13,21 @@ import subaraki.pga.util.ScreenPackReader;
 public class ScreenData {
 
     public static final String CLOSE_SCREEN = "close_screen";
-    private PlayerEntity player;
+    private Player player;
 
     private ScreenEntry viewingScreen;
 
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
 
         return player;
     }
 
-    public void setPlayer(PlayerEntity newPlayer) {
+    public void setPlayer(Player newPlayer) {
 
         this.player = newPlayer;
     }
 
-    public static LazyOptional<ScreenData> get(PlayerEntity player) {
+    public static LazyOptional<ScreenData> get(Player player) {
 
         return player.getCapability(ScreenCapability.CAPABILITY, null);
     }
@@ -43,9 +44,9 @@ public class ScreenData {
         }
 
         if (player != null) {
-            if (!player.world.isRemote)
+            if (!player.level.isClientSide)
                 NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> player),
-                        new PacketSendScreenToTrackingPlayers(player.getUniqueID(), simpleclassname));
+                        new PacketSendScreenToTrackingPlayers(player.getUUID(), simpleclassname));
 
         }
     }

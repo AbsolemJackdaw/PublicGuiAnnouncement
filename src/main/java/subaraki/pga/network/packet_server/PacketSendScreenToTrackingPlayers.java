@@ -3,9 +3,9 @@ package subaraki.pga.network.packet_server;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.network.IPacketBase;
 import subaraki.pga.network.NetworkHandler;
@@ -20,7 +20,7 @@ public class PacketSendScreenToTrackingPlayers implements IPacketBase {
 
     }
 
-    public PacketSendScreenToTrackingPlayers(PacketBuffer buf) {
+    public PacketSendScreenToTrackingPlayers(FriendlyByteBuf buf) {
 
         decode(buf);
     }
@@ -32,17 +32,17 @@ public class PacketSendScreenToTrackingPlayers implements IPacketBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
 
-        buf.writeString(name);
-        buf.writeUniqueId(uuid);
+        buf.writeUtf(name);
+        buf.writeUUID(uuid);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
 
-        name = buf.readString();
-        uuid = buf.readUniqueId();
+        name = buf.readUtf();
+        uuid = buf.readUUID();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PacketSendScreenToTrackingPlayers implements IPacketBase {
 
         context.get().enqueueWork(() -> {
 
-            PlayerEntity distPlayer = ClientReferences.getClientPlayerByUUID(uuid);
+            Player distPlayer = ClientReferences.getClientPlayerByUUID(uuid);
             if (distPlayer != null) {
                 ScreenData.get(distPlayer).ifPresent(t -> t.setViewingScreen(name));
 

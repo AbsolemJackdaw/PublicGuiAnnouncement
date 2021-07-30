@@ -16,107 +16,118 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.resource.ISelectiveResourceReloadListener;
-import net.minecraftforge.resource.VanillaResourceType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import subaraki.pga.mod.ScreenMod;
 
+@EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.FORGE)
 public class ScreenPackReader {
 
     private static HashMap<String, ScreenEntry> mappedScreens = new HashMap<>();
 
-    public ScreenPackReader registerReloadListener() {
+    @SubscribeEvent
+    public static void registerreloadListener(AddReloadListenerEvent event)
+    {
 
-        ScreenMod.LOG.info("Loading up the Resource Pack Reader");
-        IResourceManager rm = Minecraft.getInstance().getResourceManager();
-        if (rm instanceof IReloadableResourceManager) {
-            ((IReloadableResourceManager) rm).addReloadListener((ISelectiveResourceReloadListener) (resourceManager, resourcePredicate) -> {
-                if (resourcePredicate.test(VanillaResourceType.TEXTURES)) {
-                    loadFromJson();
-                }
-            });
-        }
+        event.addListener((ResourceManagerReloadListener) ((resourceManager) -> {
+            loadFromJson();
+        }));
 
-        return this;
     }
 
-    public ScreenPackReader init() {
+    public ScreenPackReader init()
+    {
 
         loadFromJson();
         return this;
     }
 
-    private void loadFromJson() {
+    private static void loadFromJson()
+    {
 
-        try {
+        try
+        {
 
-            Collection<ResourceLocation> jsonfiles = Minecraft.getInstance().getResourceManager().getAllResourceLocations("load_screens", (filename) -> {
+            Collection<ResourceLocation> jsonfiles = Minecraft.getInstance().getResourceManager().listResources("load_screens", (filename) -> {
                 return filename.endsWith(".json");
             });
 
-            List<IResource> jsons = new ArrayList<IResource>();
+            List<Resource> jsons = new ArrayList<Resource>();
 
-            for (ResourceLocation resLoc : jsonfiles) {
-                jsons.addAll(Minecraft.getInstance().getResourceManager().getAllResources(resLoc));
+            for (ResourceLocation resLoc : jsonfiles)
+            {
+                jsons.addAll(Minecraft.getInstance().getResourceManager().getResources(resLoc));
             }
 
             Gson gson = new GsonBuilder().create();
 
-            for (IResource res : jsons) {
+            for (Resource res : jsons)
+            {
                 InputStream stream = res.getInputStream();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
                 JsonElement je = gson.fromJson(reader, JsonElement.class);
                 JsonObject json = je.getAsJsonObject();
 
-                if (json.has("screens")) {
+                if (json.has("screens"))
+                {
                     JsonArray array = json.getAsJsonArray("screens");
-                    for (int i = 0; i < array.size(); i++) {
+                    for (int i = 0; i < array.size(); i++)
+                    {
 
                         JsonObject jsonObject = array.get(i).getAsJsonObject();
 
                         String fullName = jsonObject.get("class").getAsString();
 
                         String path = jsonObject.get("texture").getAsString();
-                       
+
                         int sizeX = 0;
                         int sizeY = 0;
                         int texX = 0;
                         int texY = 0;
 
-                        if (jsonObject.has("size")) {
+                        if (jsonObject.has("size"))
+                        {
                             JsonArray list = jsonObject.getAsJsonArray("size");
-                            if (list.size() == 2) {
+                            if (list.size() == 2)
+                            {
                                 sizeX = list.get(0).getAsInt();
                                 sizeY = list.get(1).getAsInt();
                             }
                         }
 
-                        if (jsonObject.has("texSize")) {
+                        if (jsonObject.has("texSize"))
+                        {
                             JsonArray list = jsonObject.getAsJsonArray("texSize");
-                            if (list.size() == 2) {
+                            if (list.size() == 2)
+                            {
                                 texX = list.get(0).getAsInt();
                                 texY = list.get(1).getAsInt();
                             }
                         }
 
-                        if (jsonObject.has("fullSize")) {
+                        if (jsonObject.has("fullSize"))
+                        {
                             int size = jsonObject.get("fullSize").getAsInt();
                             sizeX = sizeY = texX = texY = size;
                         }
 
                         ScreenEntry entry = new ScreenEntry(fullName, path, sizeX, sizeY, texX, texY);
-                        ScreenMod.LOG.debug(String.format("Loaded %s for %s : file size %d x %d , tex size %d x %d", entry.getResLoc(),
-                                entry.getRefName(), entry.getTexX(), entry.getTexY(), entry.getSizeX(), entry.getSizeY()));
+                        ScreenMod.LOG.debug(String.format("Loaded %s for %s : file size %d x %d , tex size %d x %d", entry.getResLoc(), entry.getRefName(),
+                                entry.getTexX(), entry.getTexY(), entry.getSizeX(), entry.getSizeY()));
                         mappedScreens.put(entry.getRefName(), entry);
 
                     }
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             ScreenMod.LOG.warn("************************************");
             ScreenMod.LOG.warn("!*!*!*!*!");
             ScreenMod.LOG.warn("No Screens Detected. You will not be able to use ");
@@ -130,7 +141,8 @@ public class ScreenPackReader {
         }
     }
 
-    public static ScreenEntry getEntryForSimpleClassName(String simpleclassname) {
+    public static ScreenEntry getEntryForSimpleClassName(String simpleclassname)
+    {
 
         if (mappedScreens.containsKey(simpleclassname))
             return mappedScreens.get(simpleclassname);

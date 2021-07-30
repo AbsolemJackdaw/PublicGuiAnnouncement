@@ -1,107 +1,114 @@
 package subaraki.pga.render.layer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.gui.screen.inventory.CreativeScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-import net.minecraft.client.renderer.model.Model;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import subaraki.pga.capability.ScreenData;
 
-public class LayerScreen extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
+public class LayerScreen<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
-    private ModelScreen model;
-
-    public LayerScreen(PlayerRenderer renderer) {
+    public LayerScreen(RenderLayerParent<T, M> renderer) {
 
         super(renderer);
     }
 
     @Override
-    public void render(MatrixStack mat, IRenderTypeBuffer bufferIn, int packedLightIn, AbstractClientPlayerEntity entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
-    {
+    public void render(PoseStack stack, MultiBufferSource bufferIn, int packedLightIn, T entityIn, float limbSwing,
+                       float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        if (Minecraft.getInstance().currentScreen instanceof InventoryScreen || Minecraft.getInstance().currentScreen instanceof CreativeScreen)
+        if (Minecraft.getInstance().screen instanceof InventoryScreen
+                || Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen)
             return;
 
-        ScreenData.get(entityIn).ifPresent(data -> {
+        if (entityIn instanceof Player) {
+            Player player = (Player) entityIn;
 
-            if (data != null && data.getViewingScreen() != null)
-            {
+            ScreenData.get(player).ifPresent(data -> {
+                if (data != null && data.getViewingScreen() != null) {
 
-                ResourceLocation resLoc = data.lookupResloc(data.getViewingScreen().getRefName());
+                    ResourceLocation resLoc = data.lookupResloc(data.getViewingScreen().getRefName());
 
-                if (resLoc != null)
-                {
+                    if (resLoc != null) {
 
-                    float pixelScale = 0.0625F;
-                    int gui_size_x = data.getViewingScreen().getSizeX();
-                    int gui_size_y = data.getViewingScreen().getSizeY();
+                        float pixelScale = 0.0625F;
+                        int gui_size_x = data.getViewingScreen().getSizeX();
+                        int gui_size_y = data.getViewingScreen().getSizeY();
 
-                    int texture_size_x = data.getViewingScreen().getTexX();
-                    int texture_size_y = data.getViewingScreen().getTexY();
+                        int texture_size_x = data.getViewingScreen().getTexX();
+                        int texture_size_y = data.getViewingScreen().getTexY();
 
-                    model = new ModelScreen(gui_size_x, gui_size_y, texture_size_x, texture_size_y);
+                        if (getParentModel() instanceof PlayerModel) {
+                            PlayerModel<T> playerModel = (PlayerModel<T>) getParentModel();
 
-                    mat.push();
+                            stack.pushPose();
+                            // thanks to Its_Meow from the MMD server for this rotation aid !
+                            stack.translate(playerModel.head.x / 16.0F, playerModel.head.y / 16.0F,
+                                    playerModel.head.z / 16.0F);
+                            stack.mulPose(Vector3f.ZP.rotation(playerModel.head.zRot));
+                            stack.mulPose(Vector3f.YP.rotation(playerModel.head.yRot));
+                            stack.mulPose(Vector3f.XP.rotation(playerModel.head.xRot));
 
-                    //thanks to Its_Meow from the MMD server for this rotation aid !
-                    mat.translate(this.getEntityModel().bipedHead.rotationPointX / 16.0F, this.getEntityModel().bipedHead.rotationPointY / 16.0F,
-                            this.getEntityModel().bipedHead.rotationPointZ / 16.0F);
-                    mat.rotate(Vector3f.ZP.rotation(this.getEntityModel().bipedHead.rotateAngleZ));
-                    mat.rotate(Vector3f.YP.rotation(this.getEntityModel().bipedHead.rotateAngleY));
-                    mat.rotate(Vector3f.XP.rotation(this.getEntityModel().bipedHead.rotateAngleX));
+                            float headToCenterOffset = pixelScale * 4;
+                            float centerX = (gui_size_x / 2.0F) * pixelScale;
+                            float centerY = (gui_size_y / 2.0F) * pixelScale;
+                            float sizeX = gui_size_x * pixelScale;
+                            float sizeY = gui_size_y * pixelScale;
+                            float translateX = -centerX * pixelScale;
+                            float translateY = -centerY * pixelScale - headToCenterOffset;
 
-                    double dx = ((double) gui_size_x / 2.0) * pixelScale;
-                    double dy = ((double) gui_size_y / 2.0) * pixelScale;
-                    double headToCenterOffset = pixelScale * 4;
+                            stack.translate(translateX, translateY, -pixelScale * 16);
 
-                    mat.translate(-dx * 0.0625, -dy * 0.0625 - headToCenterOffset, -pixelScale * 16);
+                            stack.scale(pixelScale, pixelScale, pixelScale);
 
-                    mat.scale(pixelScale, pixelScale, pixelScale);
+                            VertexConsumer builder = bufferIn.getBuffer(RenderType.entitySmoothCutout(resLoc));
+                            blitRect(stack, builder, 0x00F000F0, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, sizeX, sizeY, texture_size_x, texture_size_y, false);
+                            stack.popPose();
+                        }
 
-                    IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutout(resLoc));
-                    model.render(mat, ivertexbuilder, 0xffffff, 0xffffff, 1f, 1f, 1f, 1f);
-
-                    mat.pop();
-
+                    }
                 }
-            }
-        });
-
-    }
-
-    private static class ModelScreen extends Model {
-
-        final RendererModelFlat renderer;
-
-        public ModelScreen(int width, int height, int offx, int offy) {
-
-            super(RenderType::getEntityCutout);
-
-            this.textureHeight = offx;
-            this.textureWidth = offy;
-
-            renderer = new RendererModelFlat(this);
-            renderer.setTextureSize(offx, offy);
-            renderer.addBox(width, height);
-
-        }
-
-        @Override
-        public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
-        {
-
-            renderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+            });
         }
     }
+
+    private static void blitRect(PoseStack matrixStack, VertexConsumer builder, int packedLight, int overlay, float x0, float y0, float xt, float yt, float width, float height, int tWidth, int tHeight, boolean twoSided) {
+        float pixelScale = 0.0625f;
+        float tx0 = xt / (tWidth * pixelScale);
+        float ty0 = yt / (tHeight * pixelScale);
+        float tx1 = tx0 + width / (tWidth * pixelScale);
+        float ty1 = ty0 + height / (tHeight * pixelScale);
+
+        float x1 = x0 + width;
+        float y1 = y0 + height;
+
+        Matrix4f matrix = matrixStack.last().pose();
+        Matrix3f normal = matrixStack.last().normal();
+        builder.vertex(matrix, x0, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
+        builder.vertex(matrix, x1, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
+        builder.vertex(matrix, x1, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
+        builder.vertex(matrix, x0, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
+
+        if (twoSided) {
+            builder.vertex(matrix, x1, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, -1).endVertex();
+            builder.vertex(matrix, x0, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, -1).endVertex();
+            builder.vertex(matrix, x0, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, -1).endVertex();
+            builder.vertex(matrix, x1, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, -1).endVertex();
+        }
+    }
+
 }
