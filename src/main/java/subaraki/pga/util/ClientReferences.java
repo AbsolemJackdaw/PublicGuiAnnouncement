@@ -3,40 +3,34 @@ package subaraki.pga.util;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import subaraki.pga.mod.ScreenMod;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
 import subaraki.pga.render.layer.LayerScreen;
 
 public class ClientReferences {
 
-    public static Player getClientPlayer()
-    {
+    public static PlayerEntity getClientPlayer() {
 
         return Minecraft.getInstance().player;
     }
 
-    public static Level getClientWorld()
-    {
+    public static World getClientWorld() {
 
-        return Minecraft.getInstance().level;
+        return Minecraft.getInstance().world;
     }
 
-    public static Player getClientPlayerByUUID(UUID uuid)
-    {
+    public static PlayerEntity getClientPlayerByUUID(UUID uuid) {
 
-        return Minecraft.getInstance().level.getPlayerByUUID(uuid);
+        return Minecraft.getInstance().world.getPlayerByUuid(uuid);
     }
 
-    public static void loadLayers()
-    {
+    public static void loadLayers() {
 
         String types[] = new String[] { "default", "slim" };
-        ScreenMod.LOG.info(Minecraft.getInstance().getEntityRenderDispatcher());
-        for (String type : types)
-        {
-            PlayerRenderer renderer = ((PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().get(type));
+
+        for (String type : types) {
+            PlayerRenderer renderer = ((PlayerRenderer) Minecraft.getInstance().getRenderManager().getSkinMap().get(type));
             renderer.addLayer(new LayerScreen(renderer));
         }
     }

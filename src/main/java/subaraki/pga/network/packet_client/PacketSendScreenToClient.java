@@ -2,9 +2,9 @@ package subaraki.pga.network.packet_client;
 
 import java.util.function.Supplier;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.network.IPacketBase;
 import subaraki.pga.network.NetworkHandler;
@@ -23,21 +23,21 @@ public class PacketSendScreenToClient implements IPacketBase {
         this.name = name;
     }
 
-    public PacketSendScreenToClient(FriendlyByteBuf buf) {
+    public PacketSendScreenToClient(PacketBuffer buf) {
 
         decode(buf);
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(PacketBuffer buf) {
 
-        buf.writeUtf(name);
+        buf.writeString(name);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(PacketBuffer buf) {
 
-        name = buf.readUtf(128);
+        name = buf.readString(128);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PacketSendScreenToClient implements IPacketBase {
 
         context.get().enqueueWork(() -> {
 
-            Player player = ClientReferences.getClientPlayer();
+            PlayerEntity player = ClientReferences.getClientPlayer();
 
             ScreenData.get(player).ifPresent(t -> t.setViewingScreen(name));
 

@@ -1,15 +1,15 @@
 package subaraki.pga.capability;
 
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import subaraki.pga.mod.ScreenMod;
 
-public class CapabilityProvider implements ICapabilitySerializable<CompoundTag> {
+public class CapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
 
     /**
      * Unique key to identify the attached provider from others
@@ -25,19 +25,19 @@ public class CapabilityProvider implements ICapabilitySerializable<CompoundTag> 
      * Gets called before world is initiated. player.worldObj will return null here
      * !
      */
-    public CapabilityProvider(Player player) {
+    public CapabilityProvider(PlayerEntity player) {
 
         data.setPlayer(player);
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundNBT serializeNBT() {
 
-        return new CompoundTag(); // (CompoundNBT) ScreenCapability.CAPABILITY.writeNBT(data, null);
+        return new CompoundNBT(); // (CompoundNBT) ScreenCapability.CAPABILITY.writeNBT(data, null);
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
 
         // ScreenCapability.CAPABILITY.readNBT(data, null, nbt);
     }
