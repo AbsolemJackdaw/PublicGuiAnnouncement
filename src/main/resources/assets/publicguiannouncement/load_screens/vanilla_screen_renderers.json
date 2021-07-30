@@ -1,87 +1,87 @@
 {
 	"screens" : [{
-			"class" : "net.minecraft.client.gui.screen.inventory.InventoryScreen", 
+			"class" : "net.minecraft.client.gui.screens.inventory.InventoryScreen", 
 			"texture" : "minecraft:textures/gui/container/inventory.png"
 		}, {
-			"class" : "net.minecraft.client.gui.screen.inventory.CreativeScreen", 
+			"class" : "net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen", 
 			"texture" : "minecraft:textures/gui/container/inventory.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.LoomContainer", 
+			"class" : "net.minecraft.world.inventory.LoomMenu", 
 			"texture" : "minecraft:textures/gui/container/loom.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.SmokerContainer", 
+			"class" : "net.minecraft.world.inventory.SmokerMenu", 
 			"texture" : "minecraft:textures/gui/container/smoker.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.ShulkerBoxContainer", 
+			"class" : "net.minecraft.world.inventory.ShulkerBoxMenu", 
 			"texture" : "minecraft:textures/gui/container/shulker_box.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.StonecutterContainer", 
+			"class" : "net.minecraft.world.inventory.StonecutterMenu", 
 			"texture" : "minecraft:textures/gui/container/stonecutter.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.HorseInventoryContainer", 
+			"class" : "net.minecraft.world.inventory.HorseInventoryMenu", 
 			"texture" : "minecraft:textures/gui/container/horse.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.RepairContainer", 
+			"class" : "net.minecraft.world.inventory.AnvilMenu", 
 			"texture" : "minecraft:textures/gui/container/anvil.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.GrindstoneContainer", 
+			"class" : "net.minecraft.world.inventory.GrindstoneMenu", 
 			"texture" : "minecraft:textures/gui/container/grindstone.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.FurnaceContainer", 
+			"class" : "net.minecraft.world.inventory.FurnaceMenu", 
 			"texture" : "minecraft:textures/gui/container/furnace.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.EnchantmentContainer", 
+			"class" : "net.minecraft.world.inventory.EnchantmentMenu", 
 			"texture" : "minecraft:textures/gui/container/enchanting_table.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.DispenserContainer", 
+			"class" : "net.minecraft.world.inventory.DispenserMenu", 
 			"texture" : "minecraft:textures/gui/container/dispenser.png"
 		}, {
-			"class" : "net.minecraft.client.gui.screen.inventory.CraftingScreen", 
+			"class" : "net.minecraft.client.gui.screens.inventory.CraftingScreen", 
 			"texture" : "minecraft:textures/gui/container/crafting_table.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.CartographyContainer", 
+			"class" : "net.minecraft.world.inventory.CartographyTableMenu", 
 			"texture" : "minecraft:textures/gui/container/cartography_table.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.BrewingStandContainer", 
+			"class" : "net.minecraft.world.inventory.BrewingStandMenu", 
 			"texture" : "minecraft:textures/gui/container/brewing_stand.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.BlastFurnaceContainer", 
+			"class" : "net.minecraft.world.inventory.BlastFurnaceMenu", 
 			"texture" : "minecraft:textures/gui/container/blast_furnace.png"
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ChatScreen", 
+			"class" : "net.minecraft.client.gui.screens.ChatScreen", 
 			"texture" : "publicguiannouncement:textures/gui/chat.png"
 		}, {
-			"class" : "net.minecraft.inventory.container.ChestContainer", 
+			"class" : "net.minecraft.world.inventory.ChestMenu", 
 			"texture" : "minecraft:textures/gui/container/generic_54.png", 
 			"size" : [176, 222]
 		}, {
-			"class" : "net.minecraft.inventory.container.HopperContainer", 
+			"class" : "net.minecraft.world.inventory.HopperMenu", 
 			"texture" : "minecraft:textures/gui/container/hopper.png", 
 			"size" : [176, 133]
 		}, {
-			"class" : "net.minecraft.inventory.container.BeaconContainer", 
+			"class" : "net.minecraft.world.inventory.BeaconMenu", 
 			"texture" : "minecraft:textures/gui/container/beacon.png", 
 			"size" : [230, 219]
 		}, {
-			"class" : "net.minecraft.client.gui.screen.EditBookScreen", 
+			"class" : "net.minecraft.client.gui.screens.inventory.BookViewScreen", 
 			"texture" : "minecraft:textures/gui/book.png", 
 			"size" : [166, 181]
 		}, {
-			"class" : "net.minecraft.inventory.container.LecternContainer", 
+			"class" : "net.minecraft.world.inventory.LecternMenu", 
 			"texture" : "minecraft:textures/gui/book.png", 
 			"size" : [166, 181]
 		}, {
-			"class" : "net.minecraft.inventory.container.MerchantContainer", 
+			"class" : "net.minecraft.world.inventory.MerchantMenu", 
 			"texture" : "minecraft:textures/gui/container/villager2.png", 
 			"size" : [276, 166], 
 
 			"texSize" : [512, 256]
 		}, {
-			"class" : "net.minecraft.client.gui.screen.EditSignScreen", 
+			"class" : "net.minecraft.client.gui.screens.inventory.SignEditScreen", 
 			"texture" : "publicguiannouncement:textures/gui/sign_edit.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.IngameMenuScreen", 
+			"class" : "net.minecraft.client.gui.screens.PauseScreen", 
 			"texture" : "publicguiannouncement:textures/gui/pause_menu.png", 
 			"fullSize" : 255
 		}, {
@@ -89,55 +89,55 @@
 			"texture" : "publicguiannouncement:textures/gui/advancements_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ConfirmOpenLinkScreen", 
+			"class" : "net.minecraft.client.gui.screens.ConfirmLinkScreen", 
 			"texture" : "publicguiannouncement:textures/gui/link_ext_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.OptionsScreen", 
+			"class" : "net.minecraft.client.gui.screens.OptionsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/options_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.StatsScreen", 
+			"class" : "net.minecraft.client.gui.screens.StatsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/stat_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ShareToLanScreen", 
+			"class" : "net.minecraft.client.gui.screens.ShareToLanScreen", 
 			"texture" : "publicguiannouncement:textures/gui/lan_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.CustomizeSkinScreen", 
+			"class" : "net.minecraft.client.gui.screens.SkinCustomizationScreen", 
 			"texture" : "publicguiannouncement:textures/gui/skin_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.VideoSettingsScreen", 
+			"class" : "net.minecraft.client.gui.screens.VideoSettingsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/video_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.LanguageScreen", 
+			"class" : "net.minecraft.client.gui.screens.LanguageSelectScreen", 
 			"texture" : "publicguiannouncement:textures/gui/language_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ResourcePacksScreen", 
+			"class" : "net.minecraft.client.gui.screens.PackSelectionScreen", 
 			"texture" : "publicguiannouncement:textures/gui/resource_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.OptionsSoundsScreen", 
+			"class" : "net.minecraft.client.gui.screens.SoundOptionsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/music_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ControlsScreen", 
+			"class" : "net.minecraft.client.gui.screens.controls.ControlsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/controls_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.ChatOptionsScreen", 
+			"class" : "net.minecraft.client.gui.screens.ChatOptionsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/chat_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.AccessibilityScreen", 
+			"class" : "net.minecraft.client.gui.screens.AccessibilityOptionsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/accesibility_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.screen.MouseSettingsScreen", 
+			"class" : "net.minecraft.client.gui.screens.MouseSettingsScreen", 
 			"texture" : "publicguiannouncement:textures/gui/mouse_settings.png", 
 			"fullSize" : 255
 		}]

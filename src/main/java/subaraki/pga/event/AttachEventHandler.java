@@ -1,7 +1,7 @@
 package subaraki.pga.event;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import subaraki.pga.capability.CapabilityProvider;
@@ -13,7 +13,7 @@ public class AttachEventHandler {
 
         final Object entity = event.getObject();
 
-        if (entity instanceof PlayerEntity)
-            event.addCapability(CapabilityProvider.KEY, new CapabilityProvider((PlayerEntity) entity));
+        if (entity instanceof Player)
+            event.addCapability(CapabilityProvider.KEY, new CapabilityProvider((Player) entity));
     }
 }

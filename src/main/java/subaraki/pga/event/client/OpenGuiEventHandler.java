@@ -1,7 +1,7 @@
 package subaraki.pga.event.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +25,7 @@ public class OpenGuiEventHandler {
 
                 if (Minecraft.getInstance().player != null) {
 
-                    PlayerEntity player = Minecraft.getInstance().player;
+                    Player player = Minecraft.getInstance().player;
 
                     ScreenData.get(player).ifPresent(t -> t.setViewingScreen(ScreenData.CLOSE_SCREEN));
 
@@ -42,7 +42,7 @@ public class OpenGuiEventHandler {
 
             if (Minecraft.getInstance() != null) {
 
-                PlayerEntity player = Minecraft.getInstance().player;
+                Player player = Minecraft.getInstance().player;
 
                 if (player != null) {
 
