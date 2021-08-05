@@ -4,9 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fmllegacy.network.PacketDistributor;
-import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.network.NetworkHandler;
-import subaraki.pga.network.packet_server.PacketSendScreenToTrackingPlayers;
+import subaraki.pga.network.packet_client.PacketSendScreenToTrackingPlayers;
 import subaraki.pga.util.ScreenEntry;
 import subaraki.pga.util.ScreenPackReader;
 

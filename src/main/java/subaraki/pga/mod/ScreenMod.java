@@ -1,19 +1,14 @@
 package subaraki.pga.mod;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import subaraki.pga.capability.ScreenCapability;
-import subaraki.pga.event.EventRegistry;
-import subaraki.pga.event.client.OpenGuiEventHandler;
 import subaraki.pga.network.NetworkHandler;
-import subaraki.pga.util.ClientReferences;
 
 @Mod(ScreenMod.MODID)
 @EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.MOD)
@@ -24,8 +19,6 @@ public class ScreenMod {
 
     public ScreenMod() {
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 
     }
@@ -34,14 +27,7 @@ public class ScreenMod {
     {
 
         new ScreenCapability().register();
-        new EventRegistry();
         new NetworkHandler();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event)
-    {
-
-        new OpenGuiEventHandler();
-
-    }
 }

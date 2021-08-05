@@ -33,13 +33,12 @@ public class CapabilityProvider implements ICapabilitySerializable<CompoundTag> 
     @Override
     public CompoundTag serializeNBT() {
 
-        return new CompoundTag(); // (CompoundNBT) ScreenCapability.CAPABILITY.writeNBT(data, null);
+        return new CompoundTag();
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
 
-        // ScreenCapability.CAPABILITY.readNBT(data, null, nbt);
     }
 
     @SuppressWarnings("unchecked")

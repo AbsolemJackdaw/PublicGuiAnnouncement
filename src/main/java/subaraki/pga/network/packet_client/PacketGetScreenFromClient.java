@@ -6,59 +6,49 @@ import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.network.IPacketBase;
 import subaraki.pga.network.NetworkHandler;
+import subaraki.pga.network.packet_server.PacketSendScreenToServer;
 import subaraki.pga.util.ClientReferences;
 
 import java.util.function.Supplier;
 
-public class PacketSendScreenToClient implements IPacketBase {
+public class PacketGetScreenFromClient implements IPacketBase {
 
-    public PacketSendScreenToClient() {
+    public PacketGetScreenFromClient() {
 
     }
 
-    private String name;
-
-    public PacketSendScreenToClient(String name) {
-
-        this.name = name;
-    }
-
-    public PacketSendScreenToClient(FriendlyByteBuf buf) {
-
+    public PacketGetScreenFromClient(FriendlyByteBuf buf) {
         decode(buf);
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
 
-        buf.writeUtf(name);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
 
-        name = buf.readUtf(128);
     }
 
     @Override
     public void handle(Supplier<NetworkEvent.Context> context) {
 
         context.get().enqueueWork(() -> {
-
             Player player = ClientReferences.getClientPlayer();
-
-            ScreenData.get(player).ifPresent(screenData -> screenData.setViewingScreen(name));
+            ScreenData.get(player).ifPresent(screenData -> {
+                if (screenData.getViewingScreen() != null)
+                    NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(screenData.getViewingScreen().getRefName()));
+            });
 
         });
-        context.get().setPacketHandled(true);
 
+        context.get().setPacketHandled(true);
     }
 
     @Override
     public void encrypt(int id) {
-
-        NetworkHandler.NETWORK.registerMessage(id, PacketSendScreenToClient.class, PacketSendScreenToClient::encode, PacketSendScreenToClient::new,
-                PacketSendScreenToClient::handle);
+        NetworkHandler.NETWORK.registerMessage(id, PacketGetScreenFromClient.class, PacketGetScreenFromClient::encode,
+                PacketGetScreenFromClient::new, PacketGetScreenFromClient::handle);
     }
-
 }
