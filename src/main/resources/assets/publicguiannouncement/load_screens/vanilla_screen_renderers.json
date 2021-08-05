@@ -85,7 +85,7 @@
 			"texture" : "publicguiannouncement:textures/gui/pause_menu.png", 
 			"fullSize" : 255
 		}, {
-			"class" : "net.minecraft.client.gui.advancements.AdvancementsScreen", 
+			"class" : "net.minecraft.client.gui.screens.advancements.AdvancementsScreen",
 			"texture" : "publicguiannouncement:textures/gui/advancements_menu.png", 
 			"fullSize" : 255
 		}, {
