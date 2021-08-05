@@ -68,10 +68,10 @@ public class LayerScreen<T extends LivingEntity, M extends EntityModel<T>> exten
                             float centerY = (gui_size_y / 2.0F) * pixelScale;
                             float sizeX = gui_size_x * pixelScale;
                             float sizeY = gui_size_y * pixelScale;
-                            float translateX = -centerX * pixelScale;
+                            float translateX = centerX * pixelScale;
                             float translateY = -centerY * pixelScale - headToCenterOffset;
 
-                            stack.translate(translateX, translateY, -pixelScale * 16);
+                            stack.translate(translateX, translateY, -0.75f);
 
                             stack.scale(pixelScale, pixelScale, pixelScale);
 
@@ -93,7 +93,7 @@ public class LayerScreen<T extends LivingEntity, M extends EntityModel<T>> exten
         float tx1 = tx0 + width / (tWidth * pixelScale);
         float ty1 = ty0 + height / (tHeight * pixelScale);
 
-        float x1 = x0 + width;
+        float x1 = x0 - width;
         float y1 = y0 + height;
 
         Matrix4f matrix = matrixStack.last().pose();
