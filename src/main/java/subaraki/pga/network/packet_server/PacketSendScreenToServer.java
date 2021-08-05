@@ -1,13 +1,14 @@
 package subaraki.pga.network.packet_server;
 
-import java.util.function.Supplier;
-
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
-import subaraki.pga.capability.ScreenData;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import subaraki.pga.network.IPacketBase;
 import subaraki.pga.network.NetworkHandler;
+import subaraki.pga.network.packet_client.PacketSendScreenToTrackingPlayers;
+
+import java.util.function.Supplier;
 
 public class PacketSendScreenToServer implements IPacketBase {
 
@@ -47,7 +48,8 @@ public class PacketSendScreenToServer implements IPacketBase {
         context.get().enqueueWork(() -> {
             ServerPlayer player = context.get().getSender();
 
-            ScreenData.get(player).ifPresent(t -> t.setViewingScreen(name));
+            NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> player),
+                    new PacketSendScreenToTrackingPlayers(player.getUUID(), name));
 
         });
         context.get().setPacketHandled(true);
