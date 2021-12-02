@@ -41,13 +41,6 @@ public class ScreenData {
                 this.viewingScreen = ScreenPackReader.getEntryForSimpleClassName(simpleclassname);
             }
         }
-
-        if (player != null) {
-            if (!player.level.isClientSide)
-                NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> player),
-                        new PacketSendScreenToTrackingPlayers(player.getUUID(), simpleclassname));
-
-        }
     }
 
     public ScreenEntry getViewingScreen() {
@@ -57,7 +50,7 @@ public class ScreenData {
 
     private ResourceLocation cachedResLoc;
 
-    public ResourceLocation lookupResloc(String simpleclassname) {
+    public ResourceLocation lookupResloc() {
 
         if (viewingScreen != null) {
             if (cachedResLoc == null)

@@ -14,8 +14,6 @@ import subaraki.pga.render.layer.LayerScreen;
 @EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class BindLayersEvent {
 
-    public static ModelLayerLocation SCREEN_LAYER = new ModelLayerLocation(new ResourceLocation("minecraft:player"), "pga_screen");
-
     @SubscribeEvent
     public static void layers(EntityRenderersEvent.AddLayers event)
     {

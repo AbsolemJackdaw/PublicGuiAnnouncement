@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -35,13 +34,15 @@ public class LayerScreen<T extends LivingEntity, M extends EntityModel<T>> exten
                 || Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen)
             return;
 
+
         if (entityIn instanceof Player) {
             Player player = (Player) entityIn;
 
             ScreenData.get(player).ifPresent(data -> {
+
                 if (data != null && data.getViewingScreen() != null) {
 
-                    ResourceLocation resLoc = data.lookupResloc(data.getViewingScreen().getRefName());
+                    ResourceLocation resLoc = data.lookupResloc();
 
                     if (resLoc != null) {
 
@@ -54,14 +55,9 @@ public class LayerScreen<T extends LivingEntity, M extends EntityModel<T>> exten
 
                         if (getParentModel() instanceof PlayerModel) {
                             PlayerModel<T> playerModel = (PlayerModel<T>) getParentModel();
-
                             stack.pushPose();
-                            // thanks to Its_Meow from the MMD server for this rotation aid !
-                            stack.translate(playerModel.head.x / 16.0F, playerModel.head.y / 16.0F,
-                                    playerModel.head.z / 16.0F);
-                            stack.mulPose(Vector3f.ZP.rotation(playerModel.head.zRot));
-                            stack.mulPose(Vector3f.YP.rotation(playerModel.head.yRot));
-                            stack.mulPose(Vector3f.XP.rotation(playerModel.head.xRot));
+
+                            playerModel.head.translateAndRotate(stack);
 
                             float headToCenterOffset = pixelScale * 4;
                             float centerX = (gui_size_x / 2.0F) * pixelScale;
