@@ -6,7 +6,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.network.NetworkHandler;
 import subaraki.pga.network.packet_client.PacketGetScreenFromClient;

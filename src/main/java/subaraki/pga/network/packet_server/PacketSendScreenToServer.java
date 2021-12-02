@@ -2,8 +2,8 @@ package subaraki.pga.network.packet_server;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.PacketDistributor;
 import subaraki.pga.network.IPacketBase;
 import subaraki.pga.network.NetworkHandler;
 import subaraki.pga.network.packet_client.PacketSendScreenToTrackingPlayers;
@@ -12,11 +12,11 @@ import java.util.function.Supplier;
 
 public class PacketSendScreenToServer implements IPacketBase {
 
+    private String name;
+
     public PacketSendScreenToServer() {
 
     }
-
-    private String name;
 
     public PacketSendScreenToServer(String name) {
 

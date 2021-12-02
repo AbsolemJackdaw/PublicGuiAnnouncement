@@ -1,7 +1,7 @@
 package subaraki.pga.event.client;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.ScreenOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,12 +20,12 @@ public class OpenGuiEventHandler {
     }
 
     @SubscribeEvent
-    public static void openGuiEvent(GuiOpenEvent event) {
+    public static void openGuiEvent(ScreenOpenEvent event) {
 
         // minecraft sets screens twice to null for closing them.
         // no current workaround to reduce packet spam
         if (ClientReferences.getClientPlayer() != null) {
-            String simpleName = event.getGui() == null ? ScreenData.CLOSE_SCREEN : event.getGui().getClass().getName();
+            String simpleName = event.getScreen() == null ? ScreenData.CLOSE_SCREEN : event.getScreen().getClass().getName();
             ScreenData.get(ClientReferences.getClientPlayer()).ifPresent(screenData -> screenData.setViewingScreen(simpleName));
             NetworkHandler.NETWORK.sendToServer(new PacketSendScreenToServer(simpleName));
         }
