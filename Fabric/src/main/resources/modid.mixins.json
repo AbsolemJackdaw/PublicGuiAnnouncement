@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "subaraki.pga.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "ContainerCloseMixin"
+  ],
+  "client": [
+    "AccessorLayers",
+    "BindRenderLayerMixin",
+    "ExampleMixin",
+    "GuiOpenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "accessWidener" : "modid.accesswidener",
+
+}
+  
