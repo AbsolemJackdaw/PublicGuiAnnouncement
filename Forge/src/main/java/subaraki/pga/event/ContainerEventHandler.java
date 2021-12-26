@@ -5,37 +5,41 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
-import subaraki.pga.capability.ScreenData;
-import subaraki.pga.mod.ScreenMod;
+import subaraki.pga.capability.ForgeScreenData;
+import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.network.NetworkHandler;
-import subaraki.pga.network.packet_client.PacketSendScreenToClient;
-import subaraki.pga.network.packet_client.PacketSendScreenToTrackingPlayers;
+import subaraki.pga.network.packet_client.CPacketSync;
+import subaraki.pga.network.packet_client.CPacketTracking;
 
-@Mod.EventBusSubscriber(modid = ScreenMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = CommonScreenMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ContainerEventHandler {
-
+    
     @SubscribeEvent
     public static void openContainerEvent(PlayerContainerEvent.Open event) {
-
-        if (event.getContainer() != null && !event.getPlayer().level.isClientSide) {
-            String name = event.getContainer().getClass().getName();
-            sendUpdateScreenPacket((ServerPlayer) event.getPlayer(), name);
+        
+        if(event.getPlayer() instanceof ServerPlayer serverPlayer) {
+            sendUpdateScreenPacket(serverPlayer, event.getContainer().getClass().getName());
         }
     }
-
+    
     @SubscribeEvent
     public static void closeContainerEvent(PlayerContainerEvent.Close event) {
-
-        if (event.getContainer() != null && event.getPlayer() != null && !event.getPlayer().level.isClientSide) {
-            sendUpdateScreenPacket((ServerPlayer) event.getPlayer(), ScreenData.CLOSE_SCREEN);
+        
+        if(event.getPlayer() instanceof ServerPlayer serverPlayer) {
+            sendUpdateScreenPacket(serverPlayer, ForgeScreenData.CLOSE_SCREEN);
         }
     }
-
-    private static void sendUpdateScreenPacket(ServerPlayer player, String name) {
-        NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> player),
-                new PacketSendScreenToClient(name));
-
-        NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> player),
-                new PacketSendScreenToTrackingPlayers(player.getUUID(), name));
+    
+    private static void sendUpdateScreenPacket(ServerPlayer serverPlayer, String name) {
+        //set data server side
+        ForgeScreenData.get(serverPlayer).ifPresent(data -> {
+            data.setServerData(name);
+        });
+        //send to client and tracking
+        NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> serverPlayer),
+                new CPacketSync(name));
+        NetworkHandler.NETWORK.send(PacketDistributor.TRACKING_ENTITY.with(() -> serverPlayer),
+                new CPacketTracking(serverPlayer.getUUID(), name));
     }
+    
 }

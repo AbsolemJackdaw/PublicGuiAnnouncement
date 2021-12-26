@@ -1,17 +1,15 @@
 package subaraki.pga.event;
 
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import subaraki.pga.mod.ScreenMod;
+import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.render.layer.LayerScreen;
 
-@EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CommonScreenMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class BindLayersEvent {
 
     @SubscribeEvent

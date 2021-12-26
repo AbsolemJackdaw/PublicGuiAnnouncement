@@ -6,10 +6,10 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import subaraki.pga.capability.CapabilityProvider;
-import subaraki.pga.mod.ScreenMod;
+import subaraki.pga.capability.ScreenCapability;
+import subaraki.pga.mod.CommonScreenMod;
 
-@Mod.EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.FORGE)
+@Mod.EventBusSubscriber(modid = CommonScreenMod.MODID, bus = Bus.FORGE)
 public class AttachEventHandler {
 
     @SubscribeEvent
@@ -18,6 +18,6 @@ public class AttachEventHandler {
         final Object entity = event.getObject();
 
         if (entity instanceof Player)
-            event.addCapability(CapabilityProvider.KEY, new CapabilityProvider((Player) entity));
+            event.addCapability(ScreenCapability.KEY, new ScreenCapability((Player) entity));
     }
 }

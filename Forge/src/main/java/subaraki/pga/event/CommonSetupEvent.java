@@ -4,11 +4,11 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import subaraki.pga.capability.ScreenData;
-import subaraki.pga.mod.ScreenMod;
+import subaraki.pga.capability.ForgeScreenData;
+import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.network.NetworkHandler;
 
-@Mod.EventBusSubscriber(modid = ScreenMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CommonScreenMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonSetupEvent {
 
     @SubscribeEvent
@@ -18,6 +18,6 @@ public class CommonSetupEvent {
 
     @SubscribeEvent
     public static void capRegistry(RegisterCapabilitiesEvent event) {
-        event.register(ScreenData.class);
+        event.register(ForgeScreenData.class);
     }
 }

@@ -2,7 +2,6 @@ package subaraki.pga.capability;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.util.LazyOptional;
 import subaraki.pga.util.ScreenEntry;
 import subaraki.pga.util.ScreenPackReader;
 
@@ -10,14 +9,9 @@ public class ScreenData {
     
     public static final String CLOSE_SCREEN = "close_screen";
     private Player player;
-    
     private ScreenEntry viewingScreen;
     private ResourceLocation cachedResLoc;
-    
-    public static LazyOptional<ScreenData> get(Player player) {
-        
-        return player.getCapability(ScreenCapability.CAPABILITY, null);
-    }
+    private String serverData;
     
     public Player getPlayer() {
         
@@ -29,21 +23,29 @@ public class ScreenData {
         this.player = newPlayer;
     }
     
-    public ScreenEntry getViewingScreen() {
+    public ScreenEntry getClientScreen() {
         
         return viewingScreen;
     }
     
-    public void setViewingScreen(String simpleclassname) {
+    public void setClientScreen(String simpleclassname) {
         
         if(simpleclassname.equals(CLOSE_SCREEN)) {
             this.viewingScreen = null;
             this.cachedResLoc = null;
-        } else {
-            if(ScreenPackReader.getEntryForSimpleClassName(simpleclassname) != null) {
-                this.viewingScreen = ScreenPackReader.getEntryForSimpleClassName(simpleclassname);
-            }
+        } else if(ScreenPackReader.getEntryForSimpleClassName(simpleclassname) != null) {
+            this.viewingScreen = ScreenPackReader.getEntryForSimpleClassName(simpleclassname);
         }
+    }
+    
+    public String getServerData() {
+        
+        return serverData == null ? "" : serverData;
+    }
+    
+    public void setServerData(String ref) {
+        
+        this.serverData = ref;
     }
     
     public ResourceLocation lookupResloc() {
@@ -60,5 +62,6 @@ public class ScreenData {
         
         return null;
     }
+    
     
 }

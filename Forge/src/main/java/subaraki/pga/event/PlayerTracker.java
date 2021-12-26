@@ -1,27 +1,33 @@
 package subaraki.pga.event;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.network.PacketDistributor;
-import subaraki.pga.mod.ScreenMod;
+import subaraki.pga.capability.ForgeScreenData;
+import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.network.NetworkHandler;
-import subaraki.pga.network.packet_client.PacketGetScreenFromClient;
+import subaraki.pga.network.packet_client.CPacketTracking;
 
-@Mod.EventBusSubscriber(modid = ScreenMod.MODID, bus = Bus.FORGE)
+@Mod.EventBusSubscriber(modid = CommonScreenMod.MODID, bus = Bus.FORGE)
 public class PlayerTracker {
-
+    
     @SubscribeEvent
     public static void playerTracking(PlayerEvent.StartTracking event) {
-        if (event.getTarget() instanceof Player) {
-            if (event.getPlayer() instanceof ServerPlayer) {
-                ServerPlayer player = (ServerPlayer) event.getPlayer();
-                //screen data isnt present on the server.
-                //send a packet to the client first to retrieve data and send to tracked players
-                NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> player), new PacketGetScreenFromClient());
+        
+        if(event.getTarget() instanceof ServerPlayer target) {
+            if(event.getPlayer() instanceof ServerPlayer me) {
+                //get server sided ref
+                //send ref to tracking
+                ForgeScreenData.get(target).ifPresent(data -> {
+                    
+                    String ref = data.getServerData();
+                    
+                    NetworkHandler.NETWORK.send(PacketDistributor.PLAYER.with(() -> me), new CPacketTracking(target.getUUID(), ref));
+                    
+                });
             }
         }
     }

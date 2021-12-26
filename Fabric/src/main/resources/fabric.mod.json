@@ -18,12 +18,15 @@
     "main": [
       "subaraki.pga.mod.ScreenMod"
     ],
+    "client": [
+      "subaraki.pga.mod.ScreenModClient"
+    ],
     "cardinal-components": [
       "subaraki.pga.mod.Components"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "publicguiannouncement.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12",

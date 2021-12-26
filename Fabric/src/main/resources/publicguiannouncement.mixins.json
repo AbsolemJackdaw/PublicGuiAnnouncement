@@ -4,18 +4,18 @@
   "package": "subaraki.pga.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "ContainerCloseMixin"
+    "ContainerCloseMixin",
+    "ContainerOpenMixin"
   ],
   "client": [
     "AccessorLayers",
     "BindRenderLayerMixin",
-    "ExampleMixin",
-    "GuiOpenMixin"
+    "GuiOpenMixin",
+    "ReloadResourcesMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "accessWidener" : "modid.accesswidener",
-
+  "accessWidener": "publicguiannouncement.accesswidener"
 }
   
