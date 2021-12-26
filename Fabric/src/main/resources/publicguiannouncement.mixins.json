@@ -15,7 +15,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "accessWidener": "publicguiannouncement.accesswidener"
+  }
+
 }
   
