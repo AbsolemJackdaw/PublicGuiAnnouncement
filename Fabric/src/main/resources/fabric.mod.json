@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "publicguiannouncement",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Public Gui Announcement",
+  "description": "See what your friends can see !",
   "authors": [
     "AbsolemJackdaw"
   ],
