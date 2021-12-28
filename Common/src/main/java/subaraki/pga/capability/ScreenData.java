@@ -30,11 +30,19 @@ public class ScreenData {
     
     public void setClientScreen(String simpleclassname) {
         
-        if(simpleclassname.equals(CLOSE_SCREEN)) {
+        String resolvedName = simpleclassname; //CommonScreenMod.resolve(simpleclassname);
+        
+        if(resolvedName.equals(CLOSE_SCREEN)) {
             this.viewingScreen = null;
             this.cachedResLoc = null;
-        } else if(ScreenPackReader.getEntryForSimpleClassName(simpleclassname) != null) {
-            this.viewingScreen = ScreenPackReader.getEntryForSimpleClassName(simpleclassname);
+        } else {
+            //no need for a null check. screen can be null
+            //wrong !!
+            //null check needed for gui / container opening differentiation
+            ScreenEntry entry = ScreenPackReader.getEntryForSimpleClassName(resolvedName);
+            if(entry != null) {
+                this.viewingScreen = entry;
+            }
         }
     }
     
@@ -44,7 +52,7 @@ public class ScreenData {
     }
     
     public void setServerData(String ref) {
-        
+        //no need to obf here yet. all server data has to be communicated to client, where it will be changed
         this.serverData = ref;
     }
     
