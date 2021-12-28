@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import subaraki.pga.capability.ScreenData;
+import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
 
 import java.util.Optional;
@@ -84,7 +85,7 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
                             PlayerModel<T> playerModel = (PlayerModel<T>) getParentModel();
                             stack.pushPose();
 
-                            if (false)
+                            if (ConfigHandler.renderDefault())
                                 playerModel.head.translateAndRotate(stack);
                             else
                                 playerModel.body.translateAndRotate(stack);
@@ -97,7 +98,7 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
                             float translateX = centerX * pixelScale;
                             float translateY = -centerY * pixelScale - headToCenterOffset;
 
-                            if (false) {
+                            if (ConfigHandler.renderDefault()) {
                                 //reguler rendering in front of the face
                                 stack.translate(translateX, translateY, -0.75f);
                                 stack.scale(pixelScale, pixelScale, pixelScale);
@@ -139,6 +140,7 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
                 }
             });
         }
+
     }
 
     protected Optional<? extends ScreenData> getDataOptional(Player player) {
