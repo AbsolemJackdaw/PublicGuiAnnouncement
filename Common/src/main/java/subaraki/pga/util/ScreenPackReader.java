@@ -1,11 +1,7 @@
 package subaraki.pga.util;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -130,6 +126,15 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
                         }
                     }
                 }
+                
+                //ScreenEntry has a hash absed on refname, so if we're on fabric, these will defer from the
+                //ones being read in below,r esulting in a bigger list.
+                //in forge, they'll just skip over it
+                VanillaMenus.getVanillaMenus().forEach(entry -> {
+                    if(!mappedScreens.containsKey(entry.getRefName())) {
+                        mappedScreens.put(entry.getRefName(), entry);
+                    }
+                });
             };
             run.run();
         }
