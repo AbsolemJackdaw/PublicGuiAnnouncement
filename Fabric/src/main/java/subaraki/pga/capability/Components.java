@@ -1,4 +1,4 @@
-package subaraki.pga.mod;
+package subaraki.pga.capability;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -7,6 +7,7 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import net.minecraft.resources.ResourceLocation;
 import subaraki.pga.capability.FabricScreenData;
+import subaraki.pga.mod.CommonScreenMod;
 
 public class Components implements EntityComponentInitializer {
     

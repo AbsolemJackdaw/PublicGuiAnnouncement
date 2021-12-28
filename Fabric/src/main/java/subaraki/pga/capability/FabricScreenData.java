@@ -3,7 +3,6 @@ package subaraki.pga.capability;
 import dev.onyxstudios.cca.api.v3.component.TransientComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
-import subaraki.pga.mod.Components;
 
 import java.util.Optional;
 

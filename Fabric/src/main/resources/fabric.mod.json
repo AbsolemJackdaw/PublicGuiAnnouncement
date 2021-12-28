@@ -22,7 +22,7 @@
       "subaraki.pga.mod.ScreenModClient"
     ],
     "cardinal-components": [
-      "subaraki.pga.mod.Components"
+      "subaraki.pga.capability.Components"
     ]
   },
   "mixins": [
