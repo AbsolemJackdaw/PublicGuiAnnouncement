@@ -147,7 +147,7 @@
       "fullSize": 255
     },
     {
-      "class": "net.minecraft.client.gui.screens.StatsScreen",
+      "class": "net.minecraft.client.gui.screens.achievement.StatsScreen",
       "texture": "publicguiannouncement:textures/gui/stat_menu.png",
       "fullSize": 255
     },
@@ -172,7 +172,7 @@
       "fullSize": 255
     },
     {
-      "class": "net.minecraft.client.gui.screens.PackSelectionScreen",
+      "class": "net.minecraft.client.gui.screens.packs.PackSelectionScreen",
       "texture": "publicguiannouncement:textures/gui/resource_menu.png",
       "fullSize": 255
     },
@@ -200,6 +200,10 @@
       "class": "net.minecraft.client.gui.screens.MouseSettingsScreen",
       "texture": "publicguiannouncement:textures/gui/mouse_settings.png",
       "fullSize": 255
+    },
+    {
+      "class": "net.minecraft.world.inventory.SmithingMenu",
+      "texture": "minecraft:textures/gui/container/smithing.png"
     }
   ]
 }
