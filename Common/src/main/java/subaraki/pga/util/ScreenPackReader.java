@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<JsonObject>> {
 
+    private static final ScreenEntry MISSING_SCREEN = new ScreenEntry("missing.class", CommonScreenMod.MODID + ":textures/gui/missing.png", 0, 0, 0, 0);
     private static HashMap<String, ScreenEntry> mappedScreens = new HashMap<>();
 
     public static ScreenEntry getEntryForSimpleClassName(String simpleclassname) {
@@ -30,7 +31,7 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
             return mappedScreens.get(simpleclassname);
         }
 
-        return null;
+        return MISSING_SCREEN;
     }
 
     @Override
@@ -130,8 +131,8 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
                     }
                 }
 
-                //ScreenEntry has a hash absed on refname, so if we're on fabric, these will defer from the
-                //ones being read in below,r esulting in a bigger list.
+                //ScreenEntry has a hash based on refname, so if we're on fabric, these will defer from the
+                //ones being read in below, resulting in a bigger list.
                 //in forge, they'll just skip over it
                 VanillaMenus.getVanillaMenus().forEach(entry -> {
                     if (!mappedScreens.containsKey(entry.getRefName())) {
