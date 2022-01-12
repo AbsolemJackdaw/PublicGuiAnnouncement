@@ -16,16 +16,16 @@ import java.util.Map;
 
 @Mixin(EntityRenderDispatcher.class)
 public class BindRenderLayerMixin {
-    
+
     @Shadow
     private Map<String, EntityRenderer<? extends Player>> playerRenderers;
-    
+
     @Inject(method = "onResourceManagerReload", at = @At("RETURN"))
     public void addLayers(ResourceManager resourceManager, CallbackInfo ci) {
-        
+
         playerRenderers.keySet().forEach(skinTypeName -> { //default , slim
-            if(playerRenderers.get(skinTypeName) instanceof PlayerRenderer renderer) {
-                ((AccessorLayers) renderer).invokeAddLayer(new LayerScreen<>(renderer));
+            if (playerRenderers.get(skinTypeName) instanceof PlayerRenderer renderer) {
+                ((AccessorLayers) renderer).invokeAddLayer(new LayerScreen(renderer));
             }
         });
     }

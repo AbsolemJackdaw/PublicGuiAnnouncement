@@ -1,6 +1,5 @@
 package subaraki.pga.event;
 
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,15 +12,8 @@ import subaraki.pga.render.layer.LayerScreen;
 public class BindLayersEvent {
 
     @SubscribeEvent
-    public static void layers(EntityRenderersEvent.AddLayers event)
-    {
-
-        String types[] = new String[] { "default", "slim" };
-        for (String type : types)
-        {
-            PlayerRenderer renderer =  event.getSkin(type);
-            renderer.addLayer(new LayerScreen(renderer));
-        }
+    public static void layers(EntityRenderersEvent.AddLayers event) {
+        event.getSkins().forEach(skin -> event.getSkin(skin).addLayer(new LayerScreen(event.getSkin(skin))));
     }
 
 }
