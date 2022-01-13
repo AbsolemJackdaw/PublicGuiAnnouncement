@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<JsonObject>> {
 
-    private static final ScreenEntry MISSING_SCREEN = new ScreenEntry("missing.class", CommonScreenMod.MODID + ":textures/gui/missing.png", 0, 0, 0, 0);
+    public static final ScreenEntry MISSING_SCREEN = new ScreenEntry("missing.class", CommonScreenMod.MODID + ":textures/gui/missing.png", 0, 0, 0, 0);
     private static HashMap<String, ScreenEntry> mappedScreens = new HashMap<>();
 
     public static ScreenEntry getEntryForSimpleClassName(String simpleclassname) {
