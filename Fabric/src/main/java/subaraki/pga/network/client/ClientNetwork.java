@@ -14,7 +14,7 @@ public class ClientNetwork {
             byte packetid = buf.readByte();
             switch (packetid) {
                 case CommonChannel.CPACKETSELF -> {
-                    String ref = buf.readUtf();
+                    String ref = buf.readUtf(128);
                     client.execute(() -> {
                         FabricScreenData.get(client.player).ifPresent(data -> {
                             data.setClientScreen(ref);
@@ -22,7 +22,7 @@ public class ClientNetwork {
                     });
                 }
                 case CommonChannel.CPACKETTRACKING -> {
-                    String ref = buf.readUtf();
+                    String ref = buf.readUtf(128);
                     UUID otherUUID = buf.readUUID();
                     client.execute(() -> {
                         if (client.level != null) {

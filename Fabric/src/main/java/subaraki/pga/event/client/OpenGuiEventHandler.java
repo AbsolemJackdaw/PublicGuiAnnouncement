@@ -8,10 +8,10 @@ import subaraki.pga.network.client.CPacketTracking;
 import subaraki.pga.util.ClientReferences;
 
 public class OpenGuiEventHandler {
-    
+
     public static void openGuiEvent(Screen screen) {
-        
-        if(ClientReferences.getClientPlayer() != null) {
+
+        if (ClientReferences.getClientPlayer() != null) {
             String resultName = CommonGuiOpenEvent.onOpen(
                     FabricScreenData.get(ClientReferences.getClientPlayer()),
                     screen
@@ -19,9 +19,9 @@ public class OpenGuiEventHandler {
             //update own server values
             new CPacketSelf(resultName).send();
             //send own data to others
-            new CPacketTracking(resultName).send();
+            new CPacketTracking(resultName, ClientReferences.getClientPlayer().getUUID()).send();
         }
-        
+
     }
-    
+
 }

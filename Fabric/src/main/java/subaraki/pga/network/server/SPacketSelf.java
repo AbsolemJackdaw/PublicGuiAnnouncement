@@ -16,7 +16,7 @@ public class SPacketSelf implements IPacket {
         this.player = player;
         buf = PacketByteBufs.create();
         buf.writeByte(CommonChannel.CPACKETSELF); //forge network compat
-        buf.writeUtf(ref, ref.length() + 1);
+        buf.writeUtf(ref, 128);
     }
 
     @Override

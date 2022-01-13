@@ -17,7 +17,7 @@ public class ServerNetwork {
 
             switch (packetid) {
                 case CommonChannel.SPACKETSELF -> {
-                    String ref = buf.readUtf();
+                    String ref = buf.readUtf(128);
                     server.execute(() -> {
                         //update server data
                         FabricScreenData.get(player).ifPresent(data -> data.setServerData(ref));
@@ -26,7 +26,7 @@ public class ServerNetwork {
                     });
                 }
                 case CommonChannel.SPACKETTRACKING -> {
-                    String ref = buf.readUtf();
+                    String ref = buf.readUtf(128);
                     server.execute(() -> {
                         sendAround(ref, player);
                     });

@@ -21,9 +21,8 @@ public class SPacketTracking implements IPacket {
         this.ref = ref;
         buf = PacketByteBufs.create();
         buf.writeByte(CommonChannel.CPACKETTRACKING);//forge network compat
-        buf.writeUtf(ref, ref.length() + 1);
-        //get entity id. cannot recontruct player from uuid on client
-        buf.writeUUID(uuid); //nullc check has been made by uuipresent
+        buf.writeUtf(ref, 128);
+        buf.writeUUID(uuid);
     }
 
     @Override
