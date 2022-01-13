@@ -94,7 +94,7 @@
       ]
     },
     {
-      "class": "net.minecraft.client.gui.screens.inventory.BookViewScreen",
+      "class": "net.minecraft.client.gui.screens.inventory.BookEditScreen",
       "texture": "minecraft:textures/gui/book.png",
       "size": [
         166,
