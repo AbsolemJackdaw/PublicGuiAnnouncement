@@ -1,0 +1,9 @@
+{
+  "COMMENT": "advanced peripherals support",
+  "screens": [
+    {
+      "class": "de.srendi.advancedperipherals.common.container.InventoryManagerContainer",
+      "texture": "advancedperipherals:textures/gui/inventory_manager_gui.png"
+    }
+  ]
+}

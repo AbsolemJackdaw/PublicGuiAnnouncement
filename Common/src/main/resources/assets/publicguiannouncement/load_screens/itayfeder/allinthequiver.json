@@ -1,0 +1,7 @@
+{
+	"screens" : [{
+			"COMMENT" : "All-In-The-Quiver support",
+			"class" : "com.itayfeder.all_in_the_quiver.fletching_table.FletchingTableScreen",
+			"texture" : "all_in_the_quiver:textures/gui/fletching_table.png"
+		}]
+}
