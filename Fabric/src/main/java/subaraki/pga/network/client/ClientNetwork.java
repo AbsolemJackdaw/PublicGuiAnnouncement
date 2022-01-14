@@ -27,6 +27,7 @@ public class ClientNetwork {
                     client.execute(() -> {
                         if (client.level != null) {
                             Player other = client.level.getPlayerByUUID(otherUUID);
+                            System.out.println(other);
                             if (other != null) {
                                 FabricScreenData.get(other).ifPresent(data -> {
                                     data.setClientScreen(ref);
