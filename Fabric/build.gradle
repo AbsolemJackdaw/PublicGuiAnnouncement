@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
 }
@@ -20,9 +20,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation project(":Common")
     // Replace modImplementation with modApi if you expose components in your own API
-    modImplementation include("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.1")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1")
     // Includes Cardinal Components API as a Jar-in-Jar dependency (optional but recommended)
-    modImplementation include("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.1")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.0-beta.1")
 }
 
 loom {

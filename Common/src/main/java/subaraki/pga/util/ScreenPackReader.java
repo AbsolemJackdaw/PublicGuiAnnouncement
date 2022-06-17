@@ -40,18 +40,18 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
         ArrayList<JsonObject> theJsonFiles = Lists.newArrayList();
         try {
 
-            Collection<ResourceLocation> jsonfiles = resourceManager.listResources("load_screens", (filename) -> filename.endsWith(".json"));
+            Collection<ResourceLocation> jsonfiles = resourceManager.listResources("load_screens", (filename) -> filename.getPath().endsWith(".json")).keySet();
 
             List<Resource> jsons = new ArrayList<>();
 
             for (ResourceLocation resLoc : jsonfiles) {
-                jsons.addAll(Minecraft.getInstance().getResourceManager().getResources(resLoc));
+                jsons.addAll(Minecraft.getInstance().getResourceManager().getResourceStack(resLoc));
             }
 
             Gson gson = new GsonBuilder().create();
 
             for (Resource res : jsons) {
-                InputStream stream = res.getInputStream();
+                InputStream stream = res.open();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
                 JsonElement je = gson.fromJson(reader, JsonElement.class);
