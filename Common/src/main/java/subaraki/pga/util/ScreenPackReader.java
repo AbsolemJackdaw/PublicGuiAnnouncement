@@ -45,7 +45,7 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
             List<Resource> jsons = new ArrayList<>();
 
             for (ResourceLocation resLoc : jsonfiles) {
-                jsons.addAll(Minecraft.getInstance().getResourceManager().getResourceStack(resLoc));
+                jsons.addAll(resourceManager.getResourceStack(resLoc));
             }
 
             Gson gson = new GsonBuilder().create();
@@ -67,7 +67,7 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
             CommonScreenMod.LOG.warn("No Screens Detected. You will not be able to use ");
             CommonScreenMod.LOG.warn("the Public Gui Announcement Mod correctly.");
             CommonScreenMod.LOG.warn("Make sure to select or set some in the resourcepack gui !");
-            CommonScreenMod.LOG.warn("Or verify your painting json in assets/any_modid/load_screens  !");
+            CommonScreenMod.LOG.warn("Or verify your pga json in assets/any_modid/load_screens  !");
             CommonScreenMod.LOG.warn("!*!*!*!*!");
             CommonScreenMod.LOG.warn("************************************");
 
