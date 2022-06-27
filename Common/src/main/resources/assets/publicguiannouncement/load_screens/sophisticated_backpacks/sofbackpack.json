@@ -1,0 +1,9 @@
+{
+  "screens": [
+    {
+      "COMMENT": "sophisticated backpacks support",
+      "class": "net.p3pp3rf1y.sophisticatedbackpacks.client.gui.BackpackScreen",
+      "texture": "minecraft:textures/gui/container/generic_54.png"
+    }
+  ]
+}
