@@ -17,7 +17,7 @@ public class ContainerEventHandler {
     @SubscribeEvent
     public static void openContainerEvent(PlayerContainerEvent.Open event) {
         
-        if(event.getPlayer() instanceof ServerPlayer serverPlayer) {
+        if(event.getEntity() instanceof ServerPlayer serverPlayer) {
             sendUpdateScreenPacket(serverPlayer, event.getContainer().getClass().getName());
         }
     }
@@ -25,7 +25,7 @@ public class ContainerEventHandler {
     @SubscribeEvent
     public static void closeContainerEvent(PlayerContainerEvent.Close event) {
         
-        if(event.getPlayer() instanceof ServerPlayer serverPlayer) {
+        if(event.getEntity() instanceof ServerPlayer serverPlayer) {
             sendUpdateScreenPacket(serverPlayer, ForgeScreenData.CLOSE_SCREEN);
         }
     }

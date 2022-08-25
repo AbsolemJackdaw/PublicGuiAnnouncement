@@ -18,7 +18,7 @@ public class PlayerTracker {
     public static void playerTracking(PlayerEvent.StartTracking event) {
         
         if(event.getTarget() instanceof ServerPlayer target) {
-            if(event.getPlayer() instanceof ServerPlayer me) {
+            if(event.getEntity() instanceof ServerPlayer me) {
                 //get server sided ref
                 //send ref to tracking
                 ForgeScreenData.get(target).ifPresent(data -> {

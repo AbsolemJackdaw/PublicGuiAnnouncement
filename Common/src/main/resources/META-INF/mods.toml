@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 license="GNU V3"
-loaderVersion="[40,)" #mandatory (40 is current forge version)
+loaderVersion="[41,)" #mandatory (41 is current forge version)
 issueTrackerURL="https://github.com/ArtixAllMighty/PublicGuiAnnouncement/issues"
 logoFile="logo.png" #optional
 
@@ -16,21 +16,21 @@ Shows a simple representation of the screen players are currently looking at
 
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.forge]] #optional
+[[dependencies.publicguiannouncement]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[41,)" #mandatory
+    versionRange="[41.0.94,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.minecraft]]
+[[dependencies.publicguiannouncement]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19)"
+    versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
