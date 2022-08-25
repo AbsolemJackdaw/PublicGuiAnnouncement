@@ -19,7 +19,15 @@ public class OpenGuiEventHandler {
 
     @SubscribeEvent
     public static void openGuiEvent(ScreenEvent.Opening event) {
+        sendUpdateScreenPacket(event);
+    }
 
+    @SubscribeEvent
+    public static void openGuiEvent(ScreenEvent.Closing event) {
+        sendUpdateScreenPacket(event);
+    }
+
+    private static void sendUpdateScreenPacket(ScreenEvent event) {
         // minecraft sets screens twice to null for closing them.
         // no current workaround to reduce packet spam
         if (ClientReferences.getClientPlayer() != null) {
