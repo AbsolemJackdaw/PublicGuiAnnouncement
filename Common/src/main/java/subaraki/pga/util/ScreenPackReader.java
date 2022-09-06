@@ -2,7 +2,6 @@ package subaraki.pga.util;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -24,11 +23,16 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
 
     public static final ScreenEntry MISSING_SCREEN = new ScreenEntry("missing.class", CommonScreenMod.MODID + ":textures/gui/missing.png", 0, 0, 0, 0);
     private static HashMap<String, ScreenEntry> mappedScreens = new HashMap<>();
+    private static final List<String> missingEntries = new ArrayList<>();
 
     public static ScreenEntry getEntryForSimpleClassName(String simpleclassname) {
 
         if (mappedScreens.containsKey(simpleclassname)) {
             return mappedScreens.get(simpleclassname);
+        }
+        //if the entry is missing, add it to the missing list if not present, for printout later
+        if (!missingEntries.contains(simpleclassname)) {
+            missingEntries.add(simpleclassname);
         }
 
         return MISSING_SCREEN;

@@ -6,7 +6,7 @@ import subaraki.pga.capability.ScreenData;
 import java.util.Optional;
 
 public class CommonGuiOpenEvent {
-    
+
     public static String onOpen(Optional<? extends ScreenData> optional, Screen screen) {
         // minecraft sets screens twice to null for closing them.
         // no current workaround to reduce packet spam
@@ -16,5 +16,5 @@ public class CommonGuiOpenEvent {
         });
         return simpleName;
     }
-    
+
 }

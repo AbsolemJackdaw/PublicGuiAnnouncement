@@ -23,20 +23,25 @@ public class OpenGuiEventHandler {
     }
 
     @SubscribeEvent
-    public static void openGuiEvent(ScreenEvent.Closing event) {
-        sendUpdateScreenPacket(event);
+    public static void closingGuiEvent(ScreenEvent.Closing event) {
+        //not doing what it should do.
+        //using mixin instead : GuiClosedMixin.class
+    }
+
+    public static void closeGui() {
+        sendUpdateScreenPacket(null);
     }
 
     private static void sendUpdateScreenPacket(ScreenEvent event) {
         // minecraft sets screens twice to null for closing them.
         // no current workaround to reduce packet spam
         if (ClientReferences.getClientPlayer() != null) {
-            String resultName = CommonGuiOpenEvent.onOpen(ForgeScreenData.get(ClientReferences.getClientPlayer())
-                    .resolve(), event.getScreen());
-
+            String resultName = CommonGuiOpenEvent.onOpen(
+                    ForgeScreenData.get(ClientReferences.getClientPlayer()).resolve(), event == null ? null : event.getScreen());
+            System.out.println(resultName);
             NetworkHandler.NETWORK.sendToServer(new SPacketSync(resultName));
             UUID uuid = ClientReferences.getClientPlayer().getUUID();
-            System.out.println(uuid);
+
             NetworkHandler.NETWORK.sendToServer(new SPacketTracking(uuid, resultName));
         }
     }

@@ -40,8 +40,9 @@ public class ScreenData {
             //wrong !!
             //null check needed for gui / container opening differentiation
             //1.18 update : mod compat : screen cannot be null, null instead is 'missing screen'
+            //1.19.2 addition : check if the current screen is not the screen send. due to an event mismatch, we used a mixin to fix the issue, but now screen dont get set to 'empty' or 'null' if changed out
             ScreenEntry entry = ScreenPackReader.getEntryForSimpleClassName(resolvedName);
-            if (viewingScreen == null || viewingScreen.equals(ScreenPackReader.MISSING_SCREEN) && !entry.equals(ScreenPackReader.MISSING_SCREEN)) {
+            if (viewingScreen == null || viewingScreen.equals(ScreenPackReader.MISSING_SCREEN) && !entry.equals(ScreenPackReader.MISSING_SCREEN) || !viewingScreen.getRefName().equals(simpleclassname)) {
                 this.viewingScreen = entry;
             }
         }

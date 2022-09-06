@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "subaraki.pga.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "GuiClosedMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+  
