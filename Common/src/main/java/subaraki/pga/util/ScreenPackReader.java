@@ -7,6 +7,8 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
 
@@ -24,6 +26,7 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
     public static final ScreenEntry MISSING_SCREEN = new ScreenEntry("missing.class", CommonScreenMod.MODID + ":textures/gui/missing.png", 0, 0, 0, 0);
     private static HashMap<String, ScreenEntry> mappedScreens = new HashMap<>();
     private static final List<String> missingEntries = new ArrayList<>();
+    private static final Logger log = LogManager.getLogger("Missing Entries");
 
     public static ScreenEntry getEntryForSimpleClassName(String simpleclassname) {
 
@@ -36,6 +39,19 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
         }
 
         return MISSING_SCREEN;
+    }
+
+    public static void printMissing() {
+        log.info("************************************");
+        log.info("************************************");
+        if (missingEntries == null || missingEntries.isEmpty())
+            log.info("No Missing Entries in Public Gui Announcement Encountered so far ... keep playing !");
+        else
+            log.info("Printing all missing entries encountered in Public GUI Announcement");
+        for (String entry : missingEntries)
+            log.info(entry);
+
+        missingEntries.clear();
     }
 
     @Override

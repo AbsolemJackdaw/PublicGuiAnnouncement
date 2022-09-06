@@ -204,6 +204,14 @@
     {
       "class": "net.minecraft.world.inventory.SmithingMenu",
       "texture": "minecraft:textures/gui/container/smithing.png"
+    },
+    {
+      "class": "net.minecraft.client.gui.screens.ReceivingLevelScreen",
+      "texture": "publicguiannouncement:textures/gui/receive_level_screen.png",
+      "size": [
+        255,
+        143
+      ]
     }
   ]
 }
