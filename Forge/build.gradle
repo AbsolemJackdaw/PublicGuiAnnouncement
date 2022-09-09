@@ -1,3 +1,5 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
@@ -9,6 +11,11 @@ buildscript {
         classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
+
+plugins {
+    id 'net.darkhax.curseforgegradle' version '1.0.11'
+}
+
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
@@ -81,8 +88,11 @@ tasks.withType(JavaCompile) {
 
 processResources {
     from project(":Common").sourceSets.main.resources
-}
 
+    filesMatching('*.mixins.json') {
+        expand "refmap_target": "${mod_id}."
+    }
+}
 
 jar.finalizedBy('reobfJar')
 
@@ -102,10 +112,17 @@ publishing {
     }
 }
 mixin {
-    // MixinGradle Settings
-    add sourceSets.main, 'publicguiannouncement.mixins.refmap.json'
-    config 'publicguiannouncement.mixins.json'
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+}
 
-    debug.verbose = true
-    debug.export = true
+task publishCurseForge(type: TaskPublishCurseForge) {
+
+    apiToken = "${api_token_paintings}"
+
+    // The main file to upload
+    def mainFile = upload(341727, jar)
+    mainFile.releaseType = 'beta'
+    mainFile.changelog = "${changelog}"
+    mainFile.changelogType = 'markdown'
 }

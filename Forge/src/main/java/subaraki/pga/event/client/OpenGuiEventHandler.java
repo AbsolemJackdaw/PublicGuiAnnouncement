@@ -38,7 +38,6 @@ public class OpenGuiEventHandler {
         if (ClientReferences.getClientPlayer() != null) {
             String resultName = CommonGuiOpenEvent.onOpen(
                     ForgeScreenData.get(ClientReferences.getClientPlayer()).resolve(), event == null ? null : event.getScreen());
-            System.out.println(resultName);
             NetworkHandler.NETWORK.sendToServer(new SPacketSync(resultName));
             UUID uuid = ClientReferences.getClientPlayer().getUUID();
 
