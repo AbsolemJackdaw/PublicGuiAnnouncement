@@ -1,3 +1,5 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
@@ -86,7 +88,7 @@ task publishCurseForge(type: TaskPublishCurseForge) {
     apiToken = "${api_token_paintings}"
 
     // The main file to upload
-    def mainFile = upload(341727, jar)
+    def mainFile = upload(341727, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
     mainFile.releaseType = 'beta'
     mainFile.changelog = "${changelog}"
     mainFile.changelogType = 'markdown'

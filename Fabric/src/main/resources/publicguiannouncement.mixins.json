@@ -4,8 +4,6 @@
   "package": "subaraki.pga.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ContainerCloseMixin",
-    "ContainerOpenMixin",
     "EntityTracker"
   ],
   "client": [
