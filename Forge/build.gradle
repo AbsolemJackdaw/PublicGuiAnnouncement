@@ -125,4 +125,5 @@ task publishCurseForge(type: TaskPublishCurseForge) {
     mainFile.releaseType = 'beta'
     mainFile.changelog = "${changelog}"
     mainFile.changelogType = 'markdown'
+    mainFile.addJavaVersion('Java 17')
 }

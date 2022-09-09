@@ -2,6 +2,7 @@ plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
+    id 'net.darkhax.curseforgegradle' version '1.0.11'
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
@@ -78,4 +79,16 @@ publishing {
             url "file://" + System.getenv("local_maven")
         }
     }
+}
+
+task publishCurseForge(type: TaskPublishCurseForge) {
+
+    apiToken = "${api_token_paintings}"
+
+    // The main file to upload
+    def mainFile = upload(341727, jar)
+    mainFile.releaseType = 'beta'
+    mainFile.changelog = "${changelog}"
+    mainFile.changelogType = 'markdown'
+    mainFile.addJavaVersion('Java 17')
 }

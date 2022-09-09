@@ -10,43 +10,43 @@
       "texture": "minecraft:textures/gui/container/inventory.png"
     },
     {
-      "class": "net.minecraft.world.inventory.LoomMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.LoomScreen",
       "texture": "minecraft:textures/gui/container/loom.png"
     },
     {
-      "class": "net.minecraft.world.inventory.SmokerMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.SmokerScreen",
       "texture": "minecraft:textures/gui/container/smoker.png"
     },
     {
-      "class": "net.minecraft.world.inventory.ShulkerBoxMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen",
       "texture": "minecraft:textures/gui/container/shulker_box.png"
     },
     {
-      "class": "net.minecraft.world.inventory.StonecutterMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.StonecutterScreen",
       "texture": "minecraft:textures/gui/container/stonecutter.png"
     },
     {
-      "class": "net.minecraft.world.inventory.HorseInventoryMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.HorseInventoryScreen",
       "texture": "minecraft:textures/gui/container/horse.png"
     },
     {
-      "class": "net.minecraft.world.inventory.AnvilMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.AnvilScreen",
       "texture": "minecraft:textures/gui/container/anvil.png"
     },
     {
-      "class": "net.minecraft.world.inventory.GrindstoneMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.GrindstoneScreen",
       "texture": "minecraft:textures/gui/container/grindstone.png"
     },
     {
-      "class": "net.minecraft.world.inventory.FurnaceMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.FurnaceScreen",
       "texture": "minecraft:textures/gui/container/furnace.png"
     },
     {
-      "class": "net.minecraft.world.inventory.EnchantmentMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.EnchantmentScreen",
       "texture": "minecraft:textures/gui/container/enchanting_table.png"
     },
     {
-      "class": "net.minecraft.world.inventory.DispenserMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.DispenserScreen",
       "texture": "minecraft:textures/gui/container/dispenser.png"
     },
     {
@@ -54,15 +54,15 @@
       "texture": "minecraft:textures/gui/container/crafting_table.png"
     },
     {
-      "class": "net.minecraft.world.inventory.CartographyTableMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.CartographyTableScreen",
       "texture": "minecraft:textures/gui/container/cartography_table.png"
     },
     {
-      "class": "net.minecraft.world.inventory.BrewingStandMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.BrewingStandScreen",
       "texture": "minecraft:textures/gui/container/brewing_stand.png"
     },
     {
-      "class": "net.minecraft.world.inventory.BlastFurnaceMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.BlastFurnaceScreen",
       "texture": "minecraft:textures/gui/container/blast_furnace.png"
     },
     {
@@ -70,7 +70,7 @@
       "texture": "publicguiannouncement:textures/gui/chat.png"
     },
     {
-      "class": "net.minecraft.world.inventory.ChestMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.ContainerScreen",
       "texture": "minecraft:textures/gui/container/generic_54.png",
       "size": [
         176,
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "class": "net.minecraft.world.inventory.HopperMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.HopperScreen",
       "texture": "minecraft:textures/gui/container/hopper.png",
       "size": [
         176,
@@ -86,7 +86,7 @@
       ]
     },
     {
-      "class": "net.minecraft.world.inventory.BeaconMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.BeaconScreen",
       "texture": "minecraft:textures/gui/container/beacon.png",
       "size": [
         230,
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "class": "net.minecraft.world.inventory.LecternMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.LecternScreen",
       "texture": "minecraft:textures/gui/book.png",
       "size": [
         166,
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "class": "net.minecraft.world.inventory.MerchantMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.MerchantScreen",
       "texture": "minecraft:textures/gui/container/villager2.png",
       "size": [
         276,
@@ -202,7 +202,7 @@
       "fullSize": 255
     },
     {
-      "class": "net.minecraft.world.inventory.SmithingMenu",
+      "class": "net.minecraft.client.gui.screens.inventory.SmithingScreen",
       "texture": "minecraft:textures/gui/container/smithing.png"
     },
     {

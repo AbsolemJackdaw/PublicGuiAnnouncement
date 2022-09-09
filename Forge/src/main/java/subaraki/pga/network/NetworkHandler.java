@@ -2,7 +2,6 @@ package subaraki.pga.network;
 
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import subaraki.pga.network.packet_client.CPacketSync;
 import subaraki.pga.network.packet_client.CPacketTracking;
 import subaraki.pga.network.packet_server.SPacketSync;
 import subaraki.pga.network.packet_server.SPacketTracking;
@@ -18,7 +17,6 @@ public class NetworkHandler {
             .simpleChannel();
 
     public static void register() {
-        new CPacketSync().encrypt(CommonChannel.CPACKETSELF);
         new CPacketTracking().encrypt(CommonChannel.CPACKETTRACKING);
         new SPacketSync().encrypt(CommonChannel.SPACKETSELF);
         new SPacketTracking().encrypt(CommonChannel.SPACKETTRACKING);

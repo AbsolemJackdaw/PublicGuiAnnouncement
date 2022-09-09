@@ -30,20 +30,15 @@ public class ScreenData {
 
     public void setClientScreen(String simpleclassname) {
 
-        String resolvedName = simpleclassname; //CommonScreenMod.resolve(simpleclassname);
+        String resolvedName = simpleclassname;
 
         if (resolvedName.equals(CLOSE_SCREEN)) {
             this.viewingScreen = null;
             this.cachedResLoc = null;
         } else {
-            //no need for a null check. screen can be null
-            //wrong !!
-            //null check needed for gui / container opening differentiation
-            //1.18 update : mod compat : screen cannot be null, null instead is 'missing screen'
-            //1.19.2 addition : check if the current screen is not the screen send. due to an event mismatch, we used a mixin to fix the issue, but now screen dont get set to 'empty' or 'null' if changed out
-            ScreenEntry entry = ScreenPackReader.getEntryForSimpleClassName(resolvedName);
-            if (viewingScreen == null || viewingScreen.equals(ScreenPackReader.MISSING_SCREEN) && !entry.equals(ScreenPackReader.MISSING_SCREEN) || !entry.getRefName().equals(simpleclassname)) {
-                this.viewingScreen = entry;
+            ScreenEntry newView = ScreenPackReader.getEntryForSimpleClassName(resolvedName);
+            if (!newView.equals(viewingScreen)) {
+                this.viewingScreen = newView;
             }
         }
     }

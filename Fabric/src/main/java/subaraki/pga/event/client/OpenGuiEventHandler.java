@@ -3,7 +3,6 @@ package subaraki.pga.event.client;
 import net.minecraft.client.gui.screens.Screen;
 import subaraki.pga.capability.FabricScreenData;
 import subaraki.pga.event.CommonGuiOpenEvent;
-import subaraki.pga.network.client.CPacketSelf;
 import subaraki.pga.network.client.CPacketTracking;
 import subaraki.pga.util.ClientReferences;
 
@@ -16,8 +15,6 @@ public class OpenGuiEventHandler {
                     FabricScreenData.get(ClientReferences.getClientPlayer()),
                     screen
             );
-            //update own server values
-            new CPacketSelf(resultName).send();
             //send own data to others
             new CPacketTracking(resultName, ClientReferences.getClientPlayer().getUUID()).send();
         }
