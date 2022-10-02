@@ -56,7 +56,7 @@ public class ScreenData {
     public ResourceLocation lookupResloc() {
 
         if (viewingScreen != null) {
-            if (cachedResLoc == null) {
+            if (cachedResLoc == null || !cachedResLoc.toString().equals(viewingScreen.getResLoc())) {
                 cachedResLoc = new ResourceLocation(viewingScreen.getResLoc());
             }
 
