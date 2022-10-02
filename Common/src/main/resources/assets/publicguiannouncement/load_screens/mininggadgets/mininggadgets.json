@@ -1,0 +1,8 @@
+{
+  "screens" : [{
+    "COMMENT" : "Direwolf20's Mining Gadgets Modification Station block",
+    "class" : "com.direwolf20.mininggadgets.client.screens.ModificationTableScreen",
+    "texture" : "mininggadgets:textures/gui/modificationtable.png",
+    "size" : [198, 165]
+  }]
+}
