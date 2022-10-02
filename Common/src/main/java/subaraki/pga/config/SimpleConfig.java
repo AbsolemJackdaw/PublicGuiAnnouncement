@@ -106,7 +106,7 @@ public class SimpleConfig {
             if (parts.length == 2) {
                 config.put(parts[0], parts[1]);
             } else {
-                throw new RuntimeException("Syntax error in config file on line " + line + "!");
+                throw new IllegalArgumentException("Syntax error in config file on line " + line + "!");
             }
         }
     }
