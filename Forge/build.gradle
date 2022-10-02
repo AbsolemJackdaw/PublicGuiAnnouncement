@@ -118,7 +118,7 @@ mixin {
 
 task publishCurseForge(type: TaskPublishCurseForge) {
 
-    apiToken = "${api_token_paintings}"
+    apiToken = findProperty('api_token_paintings')
 
     // The main file to upload
     def mainFile = upload(341727, jar)
