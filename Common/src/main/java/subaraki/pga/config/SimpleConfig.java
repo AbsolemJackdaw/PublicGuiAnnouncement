@@ -44,12 +44,12 @@ public class SimpleConfig {
         String identifier = "Config '" + request.filename + "'";
 
         if (!request.file.exists()) {
-            LOGGER.info(identifier + " is missing, generating default one...");
+            LOGGER.info("{} is missing, generating default one...", identifier);
 
             try {
                 createConfig();
             } catch (IOException e) {
-                LOGGER.error(identifier + " failed to generate!");
+                LOGGER.error("{} failed to generate!", identifier);
                 LOGGER.trace(e);
                 broken = true;
             }
@@ -59,7 +59,7 @@ public class SimpleConfig {
             try {
                 loadConfig();
             } catch (Exception e) {
-                LOGGER.error(identifier + " failed to load!");
+                LOGGER.error("{} failed to load!", identifier);
                 LOGGER.trace(e);
                 broken = true;
             }
@@ -93,9 +93,10 @@ public class SimpleConfig {
     }
 
     private void loadConfig() throws IOException {
-        Scanner reader = new Scanner(request.file);
-        for (int line = 1; reader.hasNextLine(); line++) {
-            parseConfigEntry(reader.nextLine(), line);
+        try (Scanner reader = new Scanner(request.file)) {
+            for (int line = 1; reader.hasNextLine(); line++) {
+                parseConfigEntry(reader.nextLine(), line);
+            }
         }
     }
 
@@ -105,7 +106,7 @@ public class SimpleConfig {
             if (parts.length == 2) {
                 config.put(parts[0], parts[1]);
             } else {
-                throw new RuntimeException("Syntax error in config file on line " + line + "!");
+                throw new IllegalArgumentException("Syntax error in config file on line " + line + "!");
             }
         }
     }
@@ -193,7 +194,7 @@ public class SimpleConfig {
      * @return true if the operation was successful
      */
     public boolean delete() {
-        LOGGER.warn("Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it.");
+        LOGGER.warn("Config '{}' was removed from existence! Restart the game to regenerate it.", request.filename);
         return request.file.delete();
     }
 
