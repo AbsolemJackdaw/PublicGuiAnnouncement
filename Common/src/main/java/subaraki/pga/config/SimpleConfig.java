@@ -93,9 +93,10 @@ public class SimpleConfig {
     }
 
     private void loadConfig() throws IOException {
-        Scanner reader = new Scanner(request.file);
-        for (int line = 1; reader.hasNextLine(); line++) {
-            parseConfigEntry(reader.nextLine(), line);
+        try (Scanner reader = new Scanner(request.file)) {
+            for (int line = 1; reader.hasNextLine(); line++) {
+                parseConfigEntry(reader.nextLine(), line);
+            }
         }
     }
 
