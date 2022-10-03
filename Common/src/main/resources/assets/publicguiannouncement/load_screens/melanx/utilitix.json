@@ -1,0 +1,33 @@
+{
+  "COMMENT" : "advanced peripherals support",
+  "screens" : [
+    {
+      "class" : "de.melanx.utilitix.content.brewery.ScreenAdvancedBrewery",
+      "texture" : "utilitix:textures/container/advanced_brewery.png"
+    },
+    {
+      "class" : "de.melanx.utilitix.content.crudefurnace.ScreenCrudeFurnace",
+      "texture" : "minecraft:textures/gui/container/furnace.png"
+    },
+    {
+      "class" : "de.melanx.utilitix.content.experiencecrystal.ScreenExperienceCrystal",
+      "texture" : "publicguiannouncement:textures/gui/modsupport/melanx/experience_crystal.png",
+      "size" : [
+        176,
+        176
+      ],
+      "texSize" : [
+        176,
+        176
+      ]
+    },
+    {
+      "class" : "de.melanx.utilitix.content.track.carts.piston.PistonCartScreen",
+      "texture" : "utilitix:textures/container/piston_cart.png",
+      "size" : [
+        176,
+        186
+      ]
+    }
+  ]
+}
