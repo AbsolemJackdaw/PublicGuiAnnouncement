@@ -1,0 +1,36 @@
+{
+  "comment": "Cooking with Blockheads",
+  "screens": [
+    {
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.CounterScreen",
+      "texture": "minecraft:textures/gui/container/generic_54.png",
+      "size": [176, 222]
+    },
+    {
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.FridgeScreen",
+      "texture": "minecraft:textures/gui/container/generic_54.png",
+      "size": [176, 222]
+    },
+    {
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.FruitBasketScreen",
+      "texture": "minecraft:textures/gui/container/generic_54.png",
+      "size": [176, 222]
+    },
+    {
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.OvenScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/cookingforblockheads/oven.png",
+      "size": [202, 193]
+    },
+    {
+      "comment": "Used in Cooking Table blocks and book items",
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.RecipeBookScreen",
+      "texture": "cookingforblockheads:textures/gui/gui.png",
+      "size": [176, 184]
+    },
+    {
+      "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.SpiceRackScreen",
+      "texture": "cookingforblockheads:textures/gui/spice_rack.png",
+      "size": [176, 132]
+    }
+  ]
+}
