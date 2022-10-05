@@ -1,0 +1,10 @@
+{
+  "comment": "Farming for Blockheads",
+  "screens": [
+    {
+      "class": "net.blay09.mods.farmingforblockheads.client.gui.screen.MarketScreen",
+      "texture": "farmingforblockheads:textures/gui/market.png",
+      "size": [176, 184]
+    }
+  ]
+}

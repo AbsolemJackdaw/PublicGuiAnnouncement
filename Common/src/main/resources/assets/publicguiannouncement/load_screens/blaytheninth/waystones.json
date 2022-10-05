@@ -1,0 +1,25 @@
+{
+  "comment": "Waystones",
+  "screens": [
+    {
+      "class": "net.blay09.mods.waystones.client.gui.screen.SharestoneSelectionScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/blaytheninth/waystone_selection_screen.png",
+      "size": [255, 175]
+    },
+    {
+      "class": "net.blay09.mods.waystones.client.gui.screen.WarpPlateScreen",
+      "texture": "waystones:textures/gui/menu/warp_plate.png",
+      "size": [176, 186]
+    },
+    {
+      "class": "net.blay09.mods.waystones.client.gui.screen.WaystoneSelectionScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/blaytheninth/waystone_selection_screen.png",
+      "size": [255, 175]
+    },
+    {
+      "class": "net.blay09.mods.waystones.client.gui.screen.WaystoneSettingsScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/blaytheninth/waystone_settings_screen.png",
+      "size": [255, 82]
+    }
+  ]
+}
