@@ -18,7 +18,7 @@
     },
     {
       "class": "net.blay09.mods.cookingforblockheads.client.gui.screen.OvenScreen",
-      "texture": "publicguiannouncement:textures/gui/modsupport/cookingforblockheads/oven.png",
+      "texture": "publicguiannouncement:textures/gui/modsupport/blaytheninth/oven.png",
       "size": [202, 193]
     },
     {
