@@ -1,0 +1,7 @@
+{
+  "screens" : [{
+    "COMMENT" : "Direwolf20's Charging Station block",
+    "class" : "com.direwolf20.charginggadgets.blocks.chargingstation.ChargingStationScreen",
+    "texture" : "charginggadgets:textures/gui/charging_station.png"
+  }]
+}

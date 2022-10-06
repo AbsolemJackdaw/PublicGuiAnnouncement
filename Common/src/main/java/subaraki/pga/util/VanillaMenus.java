@@ -42,15 +42,16 @@ import net.minecraft.world.inventory.SmokerMenu;
 import net.minecraft.world.inventory.StonecutterMenu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VanillaMenus {
     
-    public static ArrayList<ScreenEntry> getVanillaMenus() {
+    public static List<ScreenEntry> getVanillaMenus() {
     
         return vanillaMenus;
     }
     
-    private static ArrayList<ScreenEntry> vanillaMenus = new ArrayList<>();
+    private static List<ScreenEntry> vanillaMenus = new ArrayList<>();
     
     static {
         ScreenEntry entry;
