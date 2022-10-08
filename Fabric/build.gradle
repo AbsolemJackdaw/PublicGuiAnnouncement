@@ -93,4 +93,6 @@ task publishCurseForge(type: TaskPublishCurseForge) {
     mainFile.changelog = "${changelog}"
     mainFile.changelogType = 'markdown'
     mainFile.addJavaVersion('Java 17')
+    mainFile.addRequirement('fabric-api')
+    mainFile.addRequirement('cardinal-components')
 }
