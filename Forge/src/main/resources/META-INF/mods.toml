@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 license="GNU V3"
-loaderVersion="[43,)"
+loaderVersion="[44,)"
 issueTrackerURL="https://github.com/ArtixAllMighty/PublicGuiAnnouncement/issues"
 logoFile="logo.png" #optional
 
@@ -22,7 +22,7 @@ Shows a simple representation of the screen players are currently looking at
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[43.1.1,)" #mandatory
+    versionRange="[44.1.0,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -31,6 +31,6 @@ Shows a simple representation of the screen players are currently looking at
 [[dependencies.publicguiannouncement]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2,)"
+    versionRange="[1.19.3,)"
     ordering="NONE"
     side="BOTH"
