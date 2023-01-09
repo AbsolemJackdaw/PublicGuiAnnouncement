@@ -2,10 +2,7 @@ package subaraki.pga.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -16,11 +13,17 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import org.joml.AxisAngle4f;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
@@ -91,7 +94,7 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
                     } else {
                         //undo body rotation. render independant of player rotation
                         float f = Mth.rotLerp(limbSwingAmount, renderedPlayer.yBodyRotO, renderedPlayer.yBodyRot);
-                        stack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f));
+                        stack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
                     }
 
 
@@ -175,11 +178,11 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
         if (ConfigHandler.bubbleDefault().equals("PLAYER")) {
             Vec3 cam = Minecraft.getInstance().cameraEntity.position();
             Vec3 play = player.position();
-            double roty = Math.atan2((cam.x - play.x), (cam.z - play.z));
-            stack.mulPose(new Quaternion(0, (float) -roty, 0, false));
+            float rotY = (float) Math.atan2((cam.x - play.x), (cam.z - play.z));
+            stack.mulPose(Axis.YP.rotation(-rotY));
         } else if (ConfigHandler.bubbleDefault().equals("CAMERA")) {
-            double roty = Minecraft.getInstance().cameraEntity.getYRot();
-            stack.mulPose(new Quaternion(0, (float) roty, 0, true));
+            float rotY = Minecraft.getInstance().cameraEntity.getYRot();
+            stack.mulPose(Axis.YP.rotationDegrees(rotY));
         }
         stack.translate(-off, 0, 0);
     }
