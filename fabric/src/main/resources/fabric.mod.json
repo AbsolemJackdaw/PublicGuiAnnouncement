@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "publicguiannouncement",
+  "version": "${version}",
+  "name": "Public Gui Announcement",
+  "description": "See what your friends can see !",
+  "authors": [
+    "AbsolemJackdaw"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/public-gui-announcement",
+    "sources": "https://github.com/ArtixAllMighty/PublicGuiAnnouncement"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "subaraki.pga.mod.ScreenMod"
+    ],
+    "client": [
+      "subaraki.pga.mod.ScreenModClient"
+    ],
+    "cardinal-components": [
+      "subaraki.pga.capability.Components"
+    ]
+  },
+  "mixins": [
+    "publicguiannouncement.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": ">=1.19.3",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "custom": {
+    "cardinal-components": [
+      "publicguiannouncement:screendata"
+    ]
+  },
+  "accessWidener": "publicguiannouncement.accesswidener"
+}

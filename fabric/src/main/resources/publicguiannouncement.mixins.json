@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "subaraki.pga.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EntityTracker"
+  ],
+  "client": [
+    "AccessorLayers",
+    "BindRenderLayerMixin",
+    "GuiOpenMixin",
+    "ReloadResourcesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+  

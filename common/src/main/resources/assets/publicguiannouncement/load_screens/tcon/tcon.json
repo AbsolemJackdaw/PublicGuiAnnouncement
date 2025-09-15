@@ -1,0 +1,33 @@
+{
+  "COMMENT": "tcon support",
+  "screens": [
+    {
+      "class": "slimeknights.tconstruct.smeltery.client.inventory.AlloyerScreen",
+      "texture": "tconstruct:textures/gui/alloyer.png"
+    },
+    {
+      "class": "slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen",
+      "texture": "tconstruct:textures/gui/smeltery.png"
+    },
+    {
+      "class": "slimeknights.tconstruct.smeltery.client.inventory.MelterScreen",
+      "texture": "tconstruct:textures/gui/melter.png"
+    },
+    {
+      "class": "slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen",
+      "texture": "tconstruct:textures/gui/partbuilder.png"
+    },
+    {
+      "class": "slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen",
+      "texture": "tconstruct:textures/gui/tinker_station.png"
+    },
+    {
+      "class": "slimeknights.tconstruct.tools.client.ToolContainerScreen",
+      "texture": "tconstruct:textures/gui/tool.png",
+      "size": [
+        176,
+        222
+      ]
+    }
+  ]
+}

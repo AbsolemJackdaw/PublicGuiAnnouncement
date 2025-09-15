@@ -1,0 +1,10 @@
+{
+	"screens" : [{
+			"COMMENT" : "Custom Selection Box SUPPORT", 
+			"class" : "me.shedaniel.csb.gui.CSBSettingsScreen",
+			"texture" : "publicguiannouncement:textures/gui/modsupport/customselectionbox/custom_selection_box.png", 
+			"size" : [504, 255], 
+
+			"texSize" : [504, 255]
+		}]
+}

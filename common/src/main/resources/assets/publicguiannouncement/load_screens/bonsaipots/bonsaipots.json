@@ -1,0 +1,9 @@
+{
+  "screens": [
+    {
+      "COMMENT": "bonsai pots support",
+      "class": "com.davenonymous.bonsaitrees3.client.BonsaiPotScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/bonsaipots/pot_gui.png"
+    }
+  ]
+}

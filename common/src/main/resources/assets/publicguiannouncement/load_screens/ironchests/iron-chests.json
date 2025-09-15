@@ -1,0 +1,7 @@
+{
+	"screens" : [{
+			"COMMENT" : "Public Gui Anouncement support", 
+			"class" : "com.progwml6.ironchest.client.screen.IronChestScreen",
+			"texture" : "minecraft:textures/gui/container/generic_54.png"
+		}]
+}

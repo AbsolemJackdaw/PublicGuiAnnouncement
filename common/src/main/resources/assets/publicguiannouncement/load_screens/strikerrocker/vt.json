@@ -1,0 +1,10 @@
+{
+  "screens": [
+    {
+      "COMMENT": "vanilla tweaks support",
+      "class": "io.github.strikerrocker.vt.content.blocks.pedestal.PedestalScreen",
+      "texture": "vt:textures/gui/pedestal.png",
+      "size" : [176, 133]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "comment": "MrCrayfish's Furniture Mod",
+  "screens": [
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.inventory.CrateScreen",
+      "texture": "cfm:textures/gui/container/crate.png"
+    },
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.DoorMatScreen",
+      "texture": "cfm:textures/gui/mail_box_settings.png",
+      "size": [176, 69]
+    },
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.inventory.FreezerScreen",
+      "texture": "cfm:textures/gui/container/freezer.png"
+    },
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.inventory.PostBoxScreen",
+      "texture": "cfm:textures/gui/container/post_box.png",
+      "size": [176, 186]
+    },
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.inventory.MailBoxScreen",
+      "texture": "cfm:textures/gui/container/mail_box.png",
+      "size": [176, 132]
+    },
+    {
+      "class": "com.mrcrayfish.furniture.client.gui.screen.MailBoxSettingsScreen",
+      "texture": "cfm:textures/gui/mail_box_settings.png",
+      "size": [176, 69]
+    }
+  ]
+}

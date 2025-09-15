@@ -1,0 +1,8 @@
+{
+  "screens" : [{
+    "COMMENT" : "rgblocks SUPPORT",
+    "class" : "platinpython.rgbblocks.client.gui.screen.ColorSelectScreen",
+    "texture" : "publicguiannouncement:textures/gui/modsupport/platinpython/colors.png",
+    "size" : [255, 120]
+  }]
+}
