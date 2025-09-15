@@ -1,0 +1,9 @@
+{
+  "comment": "Curios",
+  "screens": [
+    {
+      "class": "top.theillusivec4.curios.client.gui.CuriosScreenV2",
+      "texture": "minecraft:textures/gui/container/inventory.png"
+    }
+  ]
+}

@@ -46,9 +46,25 @@ legacyForge {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
+repositories { //all of these are for adding crates compat
+    mavenLocal()
+    maven {
+        name = 'Curse Maven'
+        url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven { url 'https://maven.blamejared.com' }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+}
+
 dependencies {
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+    modRuntimeOnly("curse.maven:curios-309927:6418456")
 }
 
 jar {

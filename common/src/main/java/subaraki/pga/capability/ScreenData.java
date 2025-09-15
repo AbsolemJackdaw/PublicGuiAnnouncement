@@ -32,8 +32,6 @@ public class ScreenData {
 
         String resolvedName = simpleclassname;
 
-       System.out.println(resolvedName);
-
         if (resolvedName.equals(CLOSE_SCREEN)) {
             this.viewingScreen = null;
             this.cachedResLoc = null;
