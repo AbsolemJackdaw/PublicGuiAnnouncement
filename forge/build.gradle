@@ -7,7 +7,7 @@ plugins {
 mixin {
     add(sourceSets.main, "${mod_id}.refmap.json")
 
-    //config("${mod_id}.mixins.json")
+//    config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
 
@@ -46,31 +46,15 @@ legacyForge {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
-repositories { //all of these are for adding crates compat
-    mavenLocal()
-    maven {
-        name = 'Curse Maven'
-        url = 'https://cursemaven.com'
-        content {
-            includeGroup 'curse.maven'
-        }
-    }
-    maven { url 'https://maven.blamejared.com' }
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
-}
-
 dependencies {
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
-    modRuntimeOnly("curse.maven:curios-309927:6418456")
 }
 
 jar {
     finalizedBy('reobfJar')
     manifest.attributes([
-            "MixinConfigs": "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+            "MixinConfigs": "${mod_id}.forge.mixins.json"
     ])
 }
 
@@ -78,7 +62,8 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     apiToken = findProperty('cf_api_token')
 
     // The main file to upload
-    def mainFile = upload(341727, jar)
+    def mainFile = upload(341727, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.displayName = "Public GUI Announcement-forge-${version.jar}"
     mainFile.releaseType = "${releasetype}"
     mainFile.changelog = "${changelog}"
     mainFile.changelogType = 'markdown'

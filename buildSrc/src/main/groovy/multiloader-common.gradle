@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_name}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
 }
 
 java {
@@ -84,26 +84,21 @@ jar {
 
 processResources {
     var expandProps = [
-            'version'                   : version,
-            'releasetype'               : releasetype,
-            'group'                     : project.group, //Else we target the task's group.
-            'changelog'                 : changelog,
-            'java_version'              : java_version,
-            'minecraft_version'         : minecraft_version,
-            'minecraft_version_range'   : minecraft_version_range,
-            'forge_version'             : forge_version,
-            'forge_loader_version_range': forge_loader_version_range,
-            'fabric_version'            : fabric_version,
-            'fabric_loader_version'     : fabric_loader_version,
-            'cardinal'                  : cardinal,
-            'mod_name'                  : mod_name,
-            'mod_author'                : mod_author,
-            'mod_id'                    : mod_id,
-            'license'                   : license,
-            'credits'                   : credits,
-            'description'               : project.description,
-            'parchment_minecraft'       : parchment_minecraft,
-            'parchment_version'         : parchment_version
+            'version'                      : version,
+            'group'                        : project.group, //Else we target the task's group.
+            'minecraft_version'            : minecraft_version,
+            'minecraft_version_range'      : minecraft_version_range,
+            'fabric_version'               : fabric_version,
+            'fabric_loader_version'        : fabric_loader_version,
+            'mod_name'                     : mod_name,
+            'mod_author'                   : mod_author,
+            'mod_id'                       : mod_id,
+            'license'                      : license,
+            'description'                  : project.description,
+            "forge_version": forge_version,
+            "forge_loader_version_range": forge_loader_version_range,
+            'credits'                      : credits,
+            'java_version'                 : java_version
     ]
 
     var jsonExpandProps = expandProps.collectEntries {
