@@ -1,7 +1,7 @@
 package subaraki.pga.mod;
 
 import net.fabricmc.api.ModInitializer;
-import subaraki.pga.network.server.ServerNetwork;
+import subaraki.pga.network.ServerNetwork;
 
 public class ScreenMod extends CommonScreenMod implements ModInitializer {
 

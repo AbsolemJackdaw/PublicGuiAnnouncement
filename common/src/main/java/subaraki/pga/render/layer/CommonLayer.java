@@ -13,17 +13,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import org.joml.AxisAngle4f;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
@@ -32,7 +28,7 @@ import java.util.Optional;
 
 public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
-    private static final ResourceLocation CLOUD = new ResourceLocation(CommonScreenMod.MODID, "textures/gui/cloud.png");
+    private static final ResourceLocation CLOUD = ResourceLocation.fromNamespaceAndPath(CommonScreenMod.MODID, "textures/gui/cloud.png");
     private static final float PIXELSCALE = 0.0625F;
 
     public CommonLayer(RenderLayerParent<T, M> renderer) {
@@ -57,10 +53,10 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
         Matrix4f matrix = matrixStack.last().pose();
         Matrix3f normal = matrixStack.last().normal();
 
-        builder.vertex(matrix, x0, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
-        builder.vertex(matrix, x1, y1, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty1).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
-        builder.vertex(matrix, x1, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx1, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
-        builder.vertex(matrix, x0, y0, 0.0f).color(1.0f, 1.0f, 1.0f, 1.0f).uv(tx0, ty0).overlayCoords(overlay).uv2(packedLight).normal(normal, 0, 0, 1).endVertex();
+        builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x0, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
 
     }
 

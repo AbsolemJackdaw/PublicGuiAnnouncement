@@ -3,6 +3,7 @@ package subaraki.pga.mixin;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,14 +19,14 @@ import java.util.Map;
 public class BindRenderLayerMixin {
 
     @Shadow
-    private Map<String, EntityRenderer<? extends Player>> playerRenderers;
+    private Map<PlayerSkin.Model, EntityRenderer<? extends Player>> playerRenderers;
 
     @Inject(method = "onResourceManagerReload", at = @At("RETURN"))
     public void addLayers(ResourceManager resourceManager, CallbackInfo ci) {
 
         playerRenderers.keySet().forEach(skinTypeName -> { //default , slim
             if (playerRenderers.get(skinTypeName) instanceof PlayerRenderer renderer) {
-                ((AccessorLayers) renderer).invokeAddLayer(new LayerScreen(renderer));
+                ((AccessorLayers) renderer).invokeAddLayer(new LayerScreen<>(renderer));
             }
         });
     }

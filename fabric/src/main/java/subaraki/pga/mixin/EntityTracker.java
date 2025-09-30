@@ -1,5 +1,6 @@
 package subaraki.pga.mixin;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -10,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import subaraki.pga.capability.FabricScreenData;
-import subaraki.pga.network.server.SPacketTracking;
+import subaraki.pga.network.CPacketTracking;
 
 @Mixin(ServerEntity.class)
 abstract class EntityTracker {
@@ -22,7 +23,7 @@ abstract class EntityTracker {
     private void onStartTracking(ServerPlayer player, CallbackInfo ci) {
         if (entity instanceof ServerPlayer target && player != null) {
             FabricScreenData.get(target).ifPresent(data -> {
-                new SPacketTracking(player, target.getUUID(), data.getServerData()).send();
+                ServerPlayNetworking.send(player, new CPacketTracking(data.getServerData(), target.getUUID()));
             });
         }
     }
