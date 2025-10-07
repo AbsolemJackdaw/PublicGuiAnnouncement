@@ -7,9 +7,7 @@ import subaraki.pga.capability.FabricScreenData;
 
 public class ClientNetwork {
 
-    public static void register() {
-        PayloadTypeRegistry.playS2C().register(CommonChannel.CPACKETSELF_TYPE, CommonChannel.CPACKETSELF_CODEC);
-        PayloadTypeRegistry.playS2C().register(CommonChannel.CPACKETTRACKING_TYPE, CommonChannel.CPACKETTRACKING_CODEC);
+    public static void registerPayloadHandler() {
         ClientPlayNetworking.registerGlobalReceiver(CommonChannel.CPACKETSELF_TYPE, (payload, context) -> {
             context.client().execute(() -> {
                 FabricScreenData.get(context.player()).ifPresent(data -> {

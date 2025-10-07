@@ -9,9 +9,7 @@ import subaraki.pga.capability.FabricScreenData;
 
 public class ServerNetwork {
 
-    public static void register() {
-        PayloadTypeRegistry.playC2S().register(CommonChannel.SPACKETSELF_TYPE, CommonChannel.SPACKETSELF_CODEC);
-        PayloadTypeRegistry.playC2S().register(CommonChannel.SPACKETTRACKING_TYPE, CommonChannel.SPACKETTRACKING_CODEC);
+    public static void registerPayloadHandler() {
         ServerPlayNetworking.registerGlobalReceiver(CommonChannel.SPACKETSELF_TYPE, (payload, context) -> {
             context.server().execute(() -> {
                 FabricScreenData.get(context.player()).ifPresent(data ->
@@ -29,6 +27,8 @@ public class ServerNetwork {
                 })
         );
     }
+
+    ;
 
     private static void sendAround(String ref, Player player) {
         //send the opened screen over to tracking players os they can render our data on our player
