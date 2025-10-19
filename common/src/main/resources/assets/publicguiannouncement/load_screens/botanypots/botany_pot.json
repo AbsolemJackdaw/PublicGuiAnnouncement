@@ -1,0 +1,9 @@
+{
+  "screens": [
+    {
+      "COMMENT": "Botany Pots mod support.",
+      "class": "net.darkhax.botanypots.common.impl.block.menu.BotanyPotScreen",
+      "texture": "publicguiannouncement:textures/gui/modsupport/botanypots/pot_gui.png"
+    }
+  ]
+}
