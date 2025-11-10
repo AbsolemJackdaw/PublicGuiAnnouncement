@@ -9,7 +9,7 @@ import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.util.ClientReferences;
 import subaraki.pga.util.ScreenPackReader;
 
-@EventBusSubscriber(modid = ScreenMod.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ScreenMod.MODID, value = Dist.CLIENT)
 public class InterceptPGACommand {
 
     @SubscribeEvent

@@ -10,7 +10,9 @@
     "AccessorLayers",
     "BindRenderLayerMixin",
     "GuiOpenMixin",
-    "ReloadResourcesMixin"
+    "ReloadResourcesMixin",
+    "MixinPlayerRenderState",
+    "MixinPlayerRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "GuiClosedMixin"
+    "GuiClosedMixin",
+    "MixinPlayerRenderer",
+    "MixinPlayerRenderState"
   ],
   "injectors": {
     "defaultRequire": 1
