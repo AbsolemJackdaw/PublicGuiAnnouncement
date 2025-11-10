@@ -6,36 +6,118 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import subaraki.pga.capability.IPGAState;
 import subaraki.pga.capability.ScreenData;
 import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
 
 import java.util.Optional;
 
-public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class CommonLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 
     private static final ResourceLocation CLOUD = ResourceLocation.fromNamespaceAndPath(CommonScreenMod.MODID, "textures/gui/cloud.png");
     private static final float PIXELSCALE = 0.0625F;
 
-    public CommonLayer(RenderLayerParent<T, M> renderer) {
+    public CommonLayer(RenderLayerParent<AvatarRenderState, PlayerModel> renderer) {
         super(renderer);
     }
 
-    protected static void blitRect(PoseStack matrixStack, VertexConsumer builder, int packedLight, int overlay, float x0, float y0, float xt, float yt, float width, float height, int tWidth, int tHeight, boolean mirrored) {
+    @Override
+    public void submit(PoseStack stack, SubmitNodeCollector submitNodeCollector, int packedLight, AvatarRenderState avatarRenderState, float v, float v1) {
+
+        if (Minecraft.getInstance().screen instanceof InventoryScreen
+                || Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen) {
+            return;
+        }
+
+        if (avatarRenderState instanceof IPGAState state)
+            state.pga$getDataOptional().ifPresent(data -> {
+                if (data.getClientScreen() != null) {
+                    ResourceLocation resLoc = data.lookupResloc();
+
+                    if (resLoc != null) {
+                        int gui_size_x = data.getClientScreen().getSizeX();
+                        int gui_size_y = data.getClientScreen().getSizeY();
+
+                        int texture_size_x = data.getClientScreen().getTexX();
+                        int texture_size_y = data.getClientScreen().getTexY();
+
+                        stack.pushPose();
+                        if (ConfigHandler.renderDefault()) {
+                            getParentModel().getHead().translateAndRotate(stack);
+                        } else {
+//TODO reimplement
+// undo body rotation. render independant of player rotation
+//                        var limb = avatarRenderState.
+//                        float f = Mth.rotLerp(limbSwingAmount, avatarRenderState.yBodyRotO, avatarRenderState.bodyRot);
+//                        stack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
+                        }
+
+
+                        float headToCenterOffset = PIXELSCALE * 4;
+                        float centerX = (gui_size_x / 2.0F) * PIXELSCALE;
+                        float centerY = (gui_size_y / 2.0F) * PIXELSCALE;
+                        float sizeX = gui_size_x * PIXELSCALE;
+                        float sizeY = gui_size_y * PIXELSCALE;
+                        float translateX = centerX * PIXELSCALE;
+                        float translateY = -centerY * PIXELSCALE - headToCenterOffset;
+
+                        if (ConfigHandler.renderDefault()) {
+                            submitNodeCollector.submitCustomGeometry(stack, RenderType.entitySmoothCutout(resLoc), (pose, vertexConsumer) -> renderOnFace(pose, vertexConsumer, sizeX, sizeY, texture_size_x, texture_size_y, translateX, translateY, packedLight));
+
+                        } else {
+                            //move to above the player head, centered and mirrored on head
+                            stack.translate(translateX - sizeX * PIXELSCALE, translateY - sizeY * PIXELSCALE, 0);
+                            stack.scale(PIXELSCALE, PIXELSCALE, PIXELSCALE);
+
+//TODO reimplement
+//                            if (Minecraft.getInstance().getCameraEntity() != null)
+//                                //only rotate to camera if the player isn't the camera itself (won't render then as the rotation is effectively null/NaN)
+//                                if (!renderedPlayer.getUUID().equals(Minecraft.getInstance().getCameraEntity().getUUID()))
+//                                    if (!ConfigHandler.bubbleDefault().equals("NONE"))
+//                                        rotateToCamera(stack, renderedPlayer);
+
+                            //draw cloud in dead center.
+                            //stretch cloud to fit found gui sizes
+                            //cloud file has hardcoded size values
+
+                            submitNodeCollector.submitCustomGeometry(stack, RenderType.entitySmoothCutout(CLOUD), (pose, vertex) -> {
+                                renderCloud(pose, vertex, gui_size_x, gui_size_y, packedLight);
+                            });
+                            submitNodeCollector.submitCustomGeometry(stack, RenderType.entitySmoothCutout(resLoc), (pose, vertex) -> {
+                                renderScreenAroundCloud(pose, vertex, sizeX, sizeY, texture_size_x, texture_size_y, packedLight);
+                            });
+                        }
+                        stack.popPose();
+                    }
+                }
+            });
+    }
+
+//    protected Optional<? extends ScreenData> getDataOptional(Player player) {
+//
+//        return Optional.empty();
+//    }
+
+    private void renderCloud(PoseStack.Pose stack, VertexConsumer vertex, int gui_size_x, int gui_size_y, int packedLight) {
+        float stretchX = gui_size_x / 255f;
+        float stretchY = gui_size_y / 255f;
+        stack.scale(stretchX, stretchY, 0);
+        blitRect(stack, vertex, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, 255 * 0.0625f, 255 * 0.0625f, 255, 255, true);
+    }
+
+    protected static void blitRect(PoseStack.Pose pose, VertexConsumer builder, int packedLight, int overlay, float x0, float y0, float xt, float yt, float width, float height, int tWidth, int tHeight, boolean mirrored) {
 
         float pixelScale = 0.0625f;
         float tx0 = xt / (tWidth * pixelScale);
@@ -50,121 +132,30 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
             x1 *= -1;
         }
 
-        Matrix4f matrix = matrixStack.last().pose();
-        Matrix3f normal = matrixStack.last().normal();
-
-        builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x0, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
+        Matrix4f matrix = pose.pose();
+        builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(pose, 0, 0, 1);
+        builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(pose, 0, 0, 1);
+        builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(pose, 0, 0, 1);
+        builder.addVertex(matrix, x0, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(pose, 0, 0, 1);
 
     }
 
-
-    @Override
-    public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, T entity, float limbSwing,
-                       float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-
-        if (Minecraft.getInstance().screen instanceof InventoryScreen
-                || Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen) {
-            return;
-        }
-        if (!(entity instanceof Player renderedPlayer))
-            return;
-
-        getDataOptional(renderedPlayer).ifPresent(data -> {
-            if (data.getClientScreen() != null) {
-                ResourceLocation resLoc = data.lookupResloc();
-
-                if (resLoc != null) {
-                    int gui_size_x = data.getClientScreen().getSizeX();
-                    int gui_size_y = data.getClientScreen().getSizeY();
-
-                    int texture_size_x = data.getClientScreen().getTexX();
-                    int texture_size_y = data.getClientScreen().getTexY();
-
-                    stack.pushPose();
-                    if (ConfigHandler.renderDefault()) {
-                        if (getParentModel() instanceof HeadedModel headedModel)
-                            headedModel.getHead().translateAndRotate(stack);
-                    } else {
-                        //undo body rotation. render independant of player rotation
-                        float f = Mth.rotLerp(limbSwingAmount, renderedPlayer.yBodyRotO, renderedPlayer.yBodyRot);
-                        stack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
-                    }
-
-
-                    float headToCenterOffset = PIXELSCALE * 4;
-                    float centerX = (gui_size_x / 2.0F) * PIXELSCALE;
-                    float centerY = (gui_size_y / 2.0F) * PIXELSCALE;
-                    float sizeX = gui_size_x * PIXELSCALE;
-                    float sizeY = gui_size_y * PIXELSCALE;
-                    float translateX = centerX * PIXELSCALE;
-                    float translateY = -centerY * PIXELSCALE - headToCenterOffset;
-
-                    if (ConfigHandler.renderDefault()) {
-                        renderOnFace(stack, buffer, resLoc, sizeX, sizeY, texture_size_x, texture_size_y, translateX, translateY, packedLight);
-                    } else {
-                        //move to above the player head, centered and mirrored on head
-                        stack.translate(translateX - sizeX * PIXELSCALE, translateY - sizeY * PIXELSCALE, 0);
-                        stack.scale(PIXELSCALE, PIXELSCALE, PIXELSCALE);
-
-
-                        if (Minecraft.getInstance().cameraEntity != null)
-                            //only rotate to camera if the player isn't the camera itself (wont render then as the rotation is effectively null/NaN)
-                            if (!renderedPlayer.getUUID().equals(Minecraft.getInstance().cameraEntity.getUUID()))
-                                if (!ConfigHandler.bubbleDefault().equals("NONE"))
-                                    rotateToCamera(stack, renderedPlayer);
-
-                        //draw cloud in dead center.
-                        //stretch cloud to fit found gui sizes
-                        //cloud file has hardcoded size values
-
-                        renderCloud(stack, renderedPlayer, buffer, gui_size_x, gui_size_y, packedLight);
-                        renderScreenAroundCloud(stack, renderedPlayer, buffer, resLoc, sizeX, sizeY, texture_size_x, texture_size_y, packedLight);
-
-                    }
-                    stack.popPose();
-                }
-            }
-        });
-    }
-
-    protected Optional<? extends ScreenData> getDataOptional(Player player) {
-
-        return Optional.empty();
-    }
-
-    private void renderCloud(PoseStack stack, Player player, MultiBufferSource buffer, int gui_size_x, int gui_size_y, int packedLight) {
-        stack.pushPose();
-        float stretchX = gui_size_x / 255f;
-        float stretchY = gui_size_y / 255f;
-        stack.scale(stretchX, stretchY, 0);
-        VertexConsumer builder = buffer.getBuffer(RenderType.entitySmoothCutout(CLOUD));
-        blitRect(stack, builder, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, 255 * 0.0625f, 255 * 0.0625f, 255, 255, true);
-        stack.popPose();
-    }
-
-    private void renderScreenAroundCloud(PoseStack stack, Player player, MultiBufferSource buffer, ResourceLocation guiTex, float sizeX, float sizeY, int texture_size_x, int texture_size_y, int packedLight) {
+    private void renderScreenAroundCloud(PoseStack.Pose stack, VertexConsumer vertex, float sizeX, float sizeY, int texture_size_x, int texture_size_y, int packedLight) {
         //render gui twice : in front and behind cloud
-        for (double i = -0.1; i <= 0.1; i += 0.2) {
-            stack.pushPose();
+        for (float i = -0.1f; i <= 0.1f; i += 0.2f) {
             //transale to center of original size
             stack.translate(sizeX / 4f, sizeY / 4f, i);
             //Scale by half to fit cloud
             stack.scale(0.5f, 0.5f, 0.5f);
-            VertexConsumer builder = buffer.getBuffer(RenderType.entitySmoothCutout(guiTex));
-            blitRect(stack, builder, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, sizeX, sizeY, texture_size_x, texture_size_y, true);
-            stack.popPose();
+            blitRect(stack, vertex, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, sizeX, sizeY, texture_size_x, texture_size_y, true);
         }
     }
 
-    private void renderOnFace(PoseStack stack, MultiBufferSource buffer, ResourceLocation guiTex, float sizeX, float sizeY, int texture_size_x, int texture_size_y, float translateX, float translateY, int packedLight) {
+    private void renderOnFace(PoseStack.Pose stack, VertexConsumer vertex, float sizeX, float sizeY, int texture_size_x, int texture_size_y, float translateX, float translateY, int packedLight) {
         //reguler rendering in front of the face
         stack.translate(translateX, translateY, -0.75f);
         stack.scale(PIXELSCALE, PIXELSCALE, PIXELSCALE);
-        VertexConsumer builder = buffer.getBuffer(RenderType.entitySmoothCutout(guiTex));
-        blitRect(stack, builder, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, sizeX, sizeY, texture_size_x, texture_size_y, false);
+        blitRect(stack, vertex, packedLight, OverlayTexture.NO_OVERLAY, 0, 0, 0, 0, sizeX, sizeY, texture_size_x, texture_size_y, false);
     }
 
     private void rotateToCamera(PoseStack stack, Player player) {
@@ -172,12 +163,12 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
         stack.translate(off, 0, 0);
 
         if (ConfigHandler.bubbleDefault().equals("PLAYER")) {
-            Vec3 cam = Minecraft.getInstance().cameraEntity.position();
+            Vec3 cam = Minecraft.getInstance().getCameraEntity().position();
             Vec3 play = player.position();
             float rotY = (float) Math.atan2((cam.x - play.x), (cam.z - play.z));
             stack.mulPose(Axis.YP.rotation(-rotY));
         } else if (ConfigHandler.bubbleDefault().equals("CAMERA")) {
-            float rotY = Minecraft.getInstance().cameraEntity.getYRot();
+            float rotY = Minecraft.getInstance().getCameraEntity().getYRot();
             stack.mulPose(Axis.YP.rotationDegrees(rotY));
         }
         stack.translate(-off, 0, 0);

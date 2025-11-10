@@ -9,7 +9,7 @@ import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.network.CPacketTracking;
 
-@EventBusSubscriber(modid = CommonScreenMod.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = CommonScreenMod.MODID)
 public class PlayerTracker {
 
     @SubscribeEvent

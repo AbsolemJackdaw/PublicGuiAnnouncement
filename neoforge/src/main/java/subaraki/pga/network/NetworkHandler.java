@@ -10,7 +10,7 @@ import subaraki.pga.mod.CommonScreenMod;
 import subaraki.pga.mod.ScreenMod;
 import subaraki.pga.util.ClientReferences;
 
-@EventBusSubscriber(modid = CommonScreenMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CommonScreenMod.MODID)
 public class NetworkHandler {
 
     private static final String PROTOCOL_VERSION = "1";

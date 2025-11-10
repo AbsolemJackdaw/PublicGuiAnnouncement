@@ -11,9 +11,8 @@ import subaraki.pga.event.client.OpenGuiEventHandler;
 @Mixin(Minecraft.class)
 public class GuiClosedMixin {
 
-    @Inject(method = "setScreen", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;reset()V"))
+    @Inject(method = "setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", at = @At(value = "TAIL"))
     public void interceptClose(Screen screen, CallbackInfo ci) {
-        //called before the reset buffer, where the screen is set
         if (Minecraft.getInstance().screen == null) //do not check against the screen in the arguments, as the screen can be set by the events
             OpenGuiEventHandler.closeGui();
         else
