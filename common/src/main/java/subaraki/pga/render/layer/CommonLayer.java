@@ -53,10 +53,10 @@ public class CommonLayer<T extends LivingEntity, M extends EntityModel<T>> exten
         Matrix4f matrix = matrixStack.last().pose();
         Matrix3f normal = matrixStack.last().normal();
 
-        builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
-        builder.addVertex(matrix, x0, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty0).setOverlay(overlay).setUv2(packedLight, 0).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setLight(packedLight).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setLight(packedLight).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setLight(packedLight).setNormal(matrixStack.last(), 0, 0, 1);
+        builder.addVertex(matrix, x0, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty0).setOverlay(overlay).setLight(packedLight).setNormal(matrixStack.last(), 0, 0, 1);
 
     }
 
