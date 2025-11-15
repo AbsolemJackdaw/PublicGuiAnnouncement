@@ -30,6 +30,6 @@ public class MixinPlayerRenderState implements IPGAState {
 
     @Override
     public Optional<? extends ScreenData> pga$getDataOptional() {
-        return Optional.empty();
+        return pga$Data;
     }
 }
