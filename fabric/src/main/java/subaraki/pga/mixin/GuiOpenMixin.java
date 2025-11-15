@@ -15,7 +15,7 @@ import subaraki.pga.util.ClientReferences;
 @Mixin(Minecraft.class)
 public class GuiOpenMixin {
 
-    @Inject(method = "setScreen", at = @At("HEAD"))
+    @Inject(method = "setScreen", at = @At("TAIL"))
     public void interceptScreen(Screen screen, CallbackInfo ci) {
         if (ClientReferences.getClientPlayer() != null) {
             FabricScreenData.get(ClientReferences.getClientPlayer()).ifPresent(data -> {
