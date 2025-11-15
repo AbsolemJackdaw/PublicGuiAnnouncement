@@ -49,7 +49,7 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     apiToken = findProperty('cf_api_token')
 
     // The main file to upload
-    def mainFile = upload("${cf_project}", file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    def mainFile = upload(cf_project, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
     mainFile.displayName = "Public GUI Announcement-neo-${minecraft_version}-${version}"
     mainFile.releaseType = "${releasetype}"
     mainFile.changelog = "${changelog}"
