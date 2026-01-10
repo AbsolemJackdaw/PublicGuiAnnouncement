@@ -149,12 +149,26 @@
     {
       "class": "net.minecraft.client.gui.screens.achievement.StatsScreen",
       "texture": "publicguiannouncement:textures/gui/stat_menu.png",
-      "fullSize": 255
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
     },
     {
       "class": "net.minecraft.client.gui.screens.ShareToLanScreen",
       "texture": "publicguiannouncement:textures/gui/lan_menu.png",
-      "fullSize": 255
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
     },
     {
       "class": "net.minecraft.client.gui.screens.SkinCustomizationScreen",
@@ -164,17 +178,36 @@
     {
       "class": "net.minecraft.client.gui.screens.VideoSettingsScreen",
       "texture": "publicguiannouncement:textures/gui/video_menu.png",
-      "fullSize": 255
-    },
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]    },
     {
       "class": "net.minecraft.client.gui.screens.LanguageSelectScreen",
       "texture": "publicguiannouncement:textures/gui/language_menu.png",
-      "fullSize": 255
-    },
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]    },
     {
       "class": "net.minecraft.client.gui.screens.packs.PackSelectionScreen",
       "texture": "publicguiannouncement:textures/gui/resource_menu.png",
-      "fullSize": 255
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
     },
     {
       "class": "net.minecraft.client.gui.screens.SoundOptionsScreen",
@@ -199,7 +232,14 @@
     {
       "class": "net.minecraft.client.gui.screens.MouseSettingsScreen",
       "texture": "publicguiannouncement:textures/gui/mouse_settings.png",
-      "fullSize": 255
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
     },
     {
       "class": "net.minecraft.client.gui.screens.inventory.SmithingScreen",
@@ -208,9 +248,42 @@
     {
       "class": "net.minecraft.client.gui.screens.ReceivingLevelScreen",
       "texture": "publicguiannouncement:textures/gui/receive_level_screen.png",
+      "fullSize": 255
+    },
+    {
+      "class": "net.minecraft.client.gui.screens.inventory.KeyBindsScreen",
+      "texture": "minecraft:textures/gui/container/keybinds_menu.png",
       "size": [
         255,
-        143
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
+    },
+    {
+      "class": "net.minecraft.client.gui.screens.inventory.WinScreen",
+      "texture": "minecraft:textures/gui/container/win_menu.png",
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
+    },
+    {
+      "class": "net.minecraft.client.gui.screens.inventory.CreditsAndAttributionScreen",
+      "texture": "minecraft:textures/gui/container/creditsandattribution_menu.png",
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
       ]
     }
   ]

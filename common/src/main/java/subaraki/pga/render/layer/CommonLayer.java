@@ -6,33 +6,24 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
-import org.joml.Matrix4fc;
-import org.joml.Quaternionf;
 import subaraki.pga.capability.IPGAState;
-import subaraki.pga.capability.ScreenData;
 import subaraki.pga.config.ConfigHandler;
 import subaraki.pga.mod.CommonScreenMod;
 
-import java.util.Optional;
-
 public class CommonLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 
-    private static final ResourceLocation CLOUD = ResourceLocation.fromNamespaceAndPath(CommonScreenMod.MODID, "textures/gui/cloud.png");
+    private static final Identifier CLOUD = Identifier.fromNamespaceAndPath(CommonScreenMod.MODID, "textures/gui/cloud.png");
     private static final float PIXELSCALE = 0.0625F;
 
     public CommonLayer(RenderLayerParent<AvatarRenderState, PlayerModel> renderer) {
@@ -50,7 +41,7 @@ public class CommonLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         if (avatarRenderState instanceof IPGAState state)
             state.pga$getDataOptional().ifPresent(data -> {
                 if (data.getClientScreen() != null) {
-                    ResourceLocation resLoc = data.lookupResloc();
+                    Identifier resLoc = data.lookupResloc();
 
                     if (resLoc != null) {
                         int gui_size_x = data.getClientScreen().getSizeX();
@@ -79,7 +70,7 @@ public class CommonLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
                         float translateY = -centerY * PIXELSCALE - headToCenterOffset;
 
                         if (ConfigHandler.renderDefault()) {
-                            submitNodeCollector.submitCustomGeometry(stack, RenderType.entitySmoothCutout(resLoc), (pose, vertexConsumer) -> renderOnFace(pose, vertexConsumer, sizeX, sizeY, texture_size_x, texture_size_y, translateX, translateY, lightCoords));
+                            submitNodeCollector.submitCustomGeometry(stack, RenderTypes.entitySmoothCutout(resLoc), (pose, vertexConsumer) -> renderOnFace(pose, vertexConsumer, sizeX, sizeY, texture_size_x, texture_size_y, translateX, translateY, lightCoords));
 
                         } else {
                             //move to above the player head, centered and mirrored on head
@@ -100,10 +91,10 @@ public class CommonLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
                             for (boolean flag : new boolean[]{true, false}) {
                                 //render front : true
                                 //Render back : false
-                                submitNodeCollector.submitCustomGeometry(stack, RenderType.entityCutout(CLOUD), (pose, vertex) -> {
+                                submitNodeCollector.submitCustomGeometry(stack, RenderTypes.entityCutout(CLOUD), (pose, vertex) -> {
                                     renderCloud(pose, vertex, gui_size_x, gui_size_y, lightCoords, flag);
                                 });
-                                submitNodeCollector.submitCustomGeometry(stack, RenderType.entitySmoothCutout(resLoc), (pose, vertex) -> {
+                                submitNodeCollector.submitCustomGeometry(stack, RenderTypes.entitySmoothCutout(resLoc), (pose, vertex) -> {
                                     renderScreenAroundCloud(pose, vertex, sizeX, sizeY, texture_size_x, texture_size_y, lightCoords, flag);
                                 });
                             }

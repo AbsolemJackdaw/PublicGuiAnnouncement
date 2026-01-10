@@ -1,0 +1,17 @@
+{
+  "screens": [
+    {
+      "COMMENT": "neoforge support",
+      "class": "net.neoforged.neoforge.client.gui.ModListScreen",
+      "texture": "publicguiannouncement:textures/gui/mod_menu.png",
+      "size": [
+        255,
+        144
+      ],
+      "texSize": [
+        255,
+        144
+      ]
+    }
+  ]
+}

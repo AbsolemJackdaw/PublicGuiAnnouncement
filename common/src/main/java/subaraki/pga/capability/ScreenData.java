@@ -1,6 +1,6 @@
 package subaraki.pga.capability;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import subaraki.pga.util.ScreenEntry;
 import subaraki.pga.util.ScreenPackReader;
@@ -10,7 +10,7 @@ public class ScreenData {
     public static final String CLOSE_SCREEN = "close_screen";
     private Player player;
     private ScreenEntry viewingScreen;
-    private ResourceLocation cachedResLoc;
+    private Identifier cachedResLoc;
     private String serverData;
 
     public Player getPlayer() {
@@ -53,11 +53,11 @@ public class ScreenData {
         this.serverData = ref;
     }
 
-    public ResourceLocation lookupResloc() {
+    public Identifier lookupResloc() {
 
         if (viewingScreen != null) {
             if (cachedResLoc == null || !cachedResLoc.toString().equals(viewingScreen.getResLoc())) {
-                cachedResLoc = ResourceLocation.parse(viewingScreen.getResLoc());
+                cachedResLoc = Identifier.parse(viewingScreen.getResLoc());
             }
 
             return cachedResLoc;

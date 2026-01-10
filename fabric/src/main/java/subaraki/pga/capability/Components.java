@@ -1,6 +1,6 @@
 package subaraki.pga.capability;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
@@ -11,7 +11,7 @@ import subaraki.pga.mod.CommonScreenMod;
 public class Components implements EntityComponentInitializer {
 
     // retrieving a type for my component or for a required dependency's
-    public static final ComponentKey<FabricScreenData> DATA = ComponentRegistry.getOrCreate(ResourceLocation.fromNamespaceAndPath(CommonScreenMod.MODID, "screendata"), FabricScreenData.class);
+    public static final ComponentKey<FabricScreenData> DATA = ComponentRegistry.getOrCreate(Identifier.fromNamespaceAndPath(CommonScreenMod.MODID, "screendata"), FabricScreenData.class);
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {

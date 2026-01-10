@@ -2,7 +2,7 @@ package subaraki.pga.util;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -60,11 +60,11 @@ public class ScreenPackReader extends SimplePreparableReloadListener<ArrayList<J
         ArrayList<JsonObject> theJsonFiles = Lists.newArrayList();
         try {
 
-            Collection<ResourceLocation> jsonfiles = resourceManager.listResources("load_screens", (filename) -> filename.getPath().endsWith(".json")).keySet();
+            Collection<Identifier> jsonfiles = resourceManager.listResources("load_screens", (filename) -> filename.getPath().endsWith(".json")).keySet();
 
             List<Resource> jsons = new ArrayList<>();
 
-            for (ResourceLocation resLoc : jsonfiles) {
+            for (Identifier resLoc : jsonfiles) {
                 jsons.addAll(resourceManager.getResourceStack(resLoc));
             }
 
