@@ -206,6 +206,10 @@
       "texture": "minecraft:textures/gui/container/smithing.png"
     },
     {
+      "class": "net.minecraft.client.gui.screens.InBedChatScreen",
+      "texture": "publicguiannouncement:textures/gui/chat.png"
+    },
+    {
       "class": "net.minecraft.client.gui.screens.ReceivingLevelScreen",
       "texture": "publicguiannouncement:textures/gui/receive_level_screen.png",
       "size": [
