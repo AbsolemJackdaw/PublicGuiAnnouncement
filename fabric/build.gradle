@@ -83,3 +83,9 @@ modrinth {
         required.project("fabric-api")
     }
 }
+
+tasks.register("publish2platforms"){
+    dependsOn(tasks.build)
+    dependsOn(tasks.modrinth)
+    dependsOn(tasks.publishCurseForge)
+}

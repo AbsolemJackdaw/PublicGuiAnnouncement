@@ -69,3 +69,9 @@ modrinth {
     loaders = ["neoforge"]
     gameVersions = ["${minecraft_version}"]
 }
+
+tasks.register("publish2platforms"){
+    dependsOn(tasks.build)
+    dependsOn(tasks.modrinth)
+    dependsOn(tasks.publishCurseForge)
+}
